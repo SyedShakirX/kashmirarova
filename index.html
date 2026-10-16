@@ -9,73 +9,1182 @@
     <meta property="og:description" content="Exquisite Kashmiri Walnuts, Mamra Almonds, Pampore Mongra Saffron, Medina Dates, and artisanal Himalayan wellness harvests with minimal Apple-inspired design." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-    <style>
-      #file-protocol-warning {
-        display: none;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        padding: 40px 20px;
-        min-height: 100vh;
-        background: #FAF9F6;
-        color: #1c1917;
-        box-sizing: border-box;
-      }
-      .warning-card {
-        max-width: 620px;
-        margin: 40px auto;
-        background: #ffffff;
-        border: 1px solid rgba(0,0,0,0.08);
-        border-radius: 24px;
-        padding: 36px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-        text-align: center;
-      }
-      .code-box {
-        background: #18181b;
-        color: #f4f4f5;
-        padding: 12px 18px;
-        border-radius: 12px;
-        font-family: monospace;
-        font-size: 14px;
-        margin: 16px 0;
-        text-align: left;
-      }
-    </style>
-  </head>
-  <body class="bg-[#FAF9F6] text-neutral-900 dark:bg-[#0A0A0B] dark:text-neutral-100 antialiased selection:bg-amber-500/20 selection:text-amber-900 dark:selection:text-amber-200">
-    <!-- Local file:// protocol detection message so user never sees a blank white screen -->
-    <div id="file-protocol-warning">
-      <div class="warning-card">
-        <div style="font-size: 36px; margin-bottom: 12px;">🏔️</div>
-        <h2 style="font-size: 24px; font-weight: 700; margin: 0 0 8px 0; letter-spacing: -0.02em;">Kashmir Arova</h2>
-        <p style="font-size: 14px; color: #57534e; line-height: 1.6; margin: 0 0 20px 0;">
-          You opened <code>index.html</code> directly from your file explorer. Because this is a modern React/Vite web application, browsers block raw TypeScript modules over <code>file://</code> URLs for security.
-        </p>
-        <div style="text-align: left; font-size: 13px; font-weight: 600; color: #292524; margin-bottom: 6px;">
-          How to run in 10 seconds:
-        </div>
-        <p style="font-size: 13px; color: #78716c; text-align: left; margin: 0 0 6px 0;">
-          Option 1: Open a terminal in this project folder and run:
-        </p>
-        <div class="code-box">npm install<br/>npm run dev</div>
-        <p style="font-size: 13px; color: #78716c; text-align: left; margin: 12px 0 6px 0;">
-          Option 2: Double click <strong>start.bat</strong> (on Windows) or <strong>start.sh</strong> (on Mac/Linux).
-        </p>
-        <p style="font-size: 13px; color: #78716c; text-align: left; margin: 12px 0 0 0;">
-          Option 3: If you ran <code>npm run build</code>, serve the <code>dist/</code> folder or open with VS Code "Live Server".
-        </p>
-      </div>
-    </div>
 
+    <!-- Tailwind CSS (CDN for 100% static execution anywhere) -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      if (window.location.protocol === 'file:') {
-        document.getElementById('file-protocol-warning').style.display = 'block';
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+              serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            },
+            colors: {
+              ivory: '#FAF9F6',
+              obsidian: '#0A0A0B',
+              surfaceDark: '#121214',
+            }
+          }
+        }
       }
     </script>
 
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <style>
+      body {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        letter-spacing: -0.011em;
+        -webkit-font-smoothing: antialiased;
+      }
+      .font-serif {
+        font-family: 'Playfair Display', Georgia, serif;
+      }
+      .apple-btn {
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .apple-btn:active {
+        transform: scale(0.975);
+      }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(150, 150, 150, 0.25);
+        border-radius: 9999px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(150, 150, 150, 0.45);
+      }
+    </style>
+  </head>
+  <body class="bg-[#FAF9F6] text-neutral-900 dark:bg-[#0A0A0B] dark:text-neutral-100 antialiased selection:bg-amber-500/20 selection:text-amber-900 dark:selection:text-amber-200 transition-colors duration-300">
+
+    <!-- Apple-style Glass Navigation Header -->
+    <header class="sticky top-0 z-40 w-full transition-colors duration-300 bg-[#FAF9F6]/90 dark:bg-[#0A0A0B]/90 backdrop-blur-xl border-b border-black/[0.06] dark:border-white/[0.08]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-8">
+        
+        <!-- Zone 1: Brand Wordmark -->
+        <a href="#" class="group flex items-center gap-2 text-lg sm:text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 whitespace-nowrap shrink-0 apple-btn">
+          <span class="font-serif italic text-amber-700 dark:text-amber-400">Kashmir</span>
+          <span class="font-sans font-semibold tracking-wider uppercase text-xs sm:text-sm text-neutral-800 dark:text-neutral-200">
+            Arova
+          </span>
+        </a>
+
+        <!-- Zone 2: Nav Links -->
+        <nav class="hidden md:flex items-center gap-8 text-xs lg:text-sm font-medium text-neutral-600 dark:text-neutral-300">
+          <a href="#catalog" class="hover:text-neutral-950 dark:hover:text-white transition-colors whitespace-nowrap shrink-0">Harvest Catalog</a>
+          <a href="#purity" class="hover:text-neutral-950 dark:hover:text-white transition-colors whitespace-nowrap shrink-0">Purity Standards</a>
+          <a href="#heritage" class="hover:text-neutral-950 dark:hover:text-white transition-colors whitespace-nowrap shrink-0">Valley Heritage</a>
+          <a href="#concierge" class="hover:text-neutral-950 dark:hover:text-white transition-colors whitespace-nowrap shrink-0">WhatsApp Concierge</a>
+        </nav>
+
+        <!-- Zone 3: Actions (Theme Toggle, WhatsApp Link, Bag) -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <!-- Aesthetic Apple-style Dark Mode Switch -->
+          <button id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle display theme" class="relative flex items-center p-1.5 sm:px-2.5 sm:py-1.5 text-xs font-medium rounded-full bg-neutral-200/60 hover:bg-neutral-200 dark:bg-neutral-800/80 dark:hover:bg-neutral-700/80 text-neutral-800 dark:text-neutral-200 border border-neutral-300/40 dark:border-neutral-700/60 apple-btn cursor-pointer">
+            <span id="themeIcon" class="mr-1.5">🌙</span>
+            <span id="themeText" class="hidden sm:inline text-[11px] font-normal tracking-wide">Dark</span>
+          </button>
+
+          <!-- WhatsApp Direct Header Link -->
+          <a href="https://wa.me/917006812676?text=Hi%20can%20I%20get%20more%20Info%20on%20your%20products." target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:hover:bg-emerald-900/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 apple-btn whitespace-nowrap">
+            <svg class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            <span>WhatsApp</span>
+          </a>
+
+          <!-- Shopping Bag Trigger -->
+          <button onclick="toggleCartDrawer(true)" aria-label="View shopping bag" class="relative p-2 rounded-full text-neutral-700 dark:text-neutral-200 hover:bg-neutral-200/50 dark:hover:bg-neutral-800/60 transition-colors apple-btn cursor-pointer">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            <span id="navCartCount" class="hidden absolute -top-1 -right-1 items-center justify-center min-w-4 h-4 px-1 text-[10px] font-semibold text-white bg-neutral-900 dark:bg-amber-500 dark:text-neutral-950 rounded-full tabular-nums">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="relative overflow-hidden pt-8 pb-16 sm:pt-14 sm:pb-24 lg:pt-20 lg:pb-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+            
+            <div class="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-[11px] sm:text-xs font-medium tracking-widest uppercase text-amber-800 dark:text-amber-400 mb-4 sm:mb-6">
+              <span>Direct from Kashmir Valley</span>
+              <span aria-hidden="true" class="hidden sm:inline">·</span>
+              <span class="hidden sm:inline">Est. Authentic Provenance</span>
+              <span aria-hidden="true">·</span>
+              <span>kashmirarova.com</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 mb-6 leading-[1.08]">
+              Pure Himalayan harvest.<br />
+              <span class="font-serif italic font-normal text-neutral-600 dark:text-neutral-300">
+                Untouched by compromise.
+              </span>
+            </h1>
+
+            <p class="text-base sm:text-lg lg:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl font-light mb-8 sm:mb-10 leading-relaxed">
+              Grade A1 Pampore Mongra Saffron, sweet unbleached Snow-White Walnuts, high-oil Mamra Almonds, and Medina Royal Dates. Harvested at high altitude, packaged pure.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto">
+              <a href="#catalog" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-950 text-sm font-medium apple-btn shadow-sm flex items-center justify-center gap-2">
+                <span>Explore The Harvest</span>
+                <svg class="w-4 h-4 text-neutral-400 dark:text-neutral-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+              </a>
+
+              <!-- Required WhatsApp Button with phone number 70068 12676 -->
+              <a href="https://wa.me/917006812676?text=Hi%20can%20I%20get%20more%20Info%20on%20your%20products." target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white hover:bg-neutral-50 dark:bg-neutral-900 dark:hover:bg-neutral-800/90 text-neutral-900 dark:text-neutral-100 text-sm font-medium apple-btn border border-neutral-200 dark:border-neutral-800 shadow-sm flex items-center justify-center gap-2.5 group">
+                <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-emerald-500/20"></div>
+                <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                <span>WhatsApp Concierge</span>
+              </a>
+            </div>
+
+            <!-- Proof bar -->
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-neutral-500 dark:text-neutral-400">
+              <span class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-neutral-700 dark:text-neutral-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                100% GI-Tagged Kashmiri Origin
+              </span>
+              <span aria-hidden="true">·</span>
+              <span>Non-Bleached & Non-Irradiated</span>
+              <span aria-hidden="true">·</span>
+              <span>Dispatch Across India & Worldwide</span>
+            </div>
+          </div>
+
+          <!-- Hero Photographic Visual Showcase -->
+          <div class="mt-12 sm:mt-16 relative rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 dark:border-neutral-800/80 shadow-xl bg-neutral-100 dark:bg-neutral-900">
+            <div class="aspect-[16/9] w-full overflow-hidden">
+              <img
+                src="./images/hero_kashmir_arova.jpg"
+                alt="Pure Kashmiri Saffron jar with Snow Walnuts and Mamra Almonds against majestic Himalayan snow mountains"
+                class="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-[1.02]"
+              />
+            </div>
+
+            <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto max-w-md p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-white/90 dark:bg-neutral-950/90 backdrop-blur-md border border-neutral-200/60 dark:border-neutral-800/80 shadow-lg">
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-amber-600 dark:text-amber-400">✦</span>
+                <span class="text-xs font-semibold text-neutral-900 dark:text-white tracking-wide uppercase">
+                  Autumn 2026 Flush Collection
+                </span>
+              </div>
+              <p class="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                Every saffron filament, walnut kernel, and Mamra almond is hand-sorted in Kashmir before sealed dispatch. Direct from grower to your table.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Harvest Catalog -->
+      <section id="catalog" class="py-16 sm:py-24 border-t border-neutral-200/70 dark:border-neutral-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div>
+              <div class="text-xs font-semibold uppercase tracking-widest text-amber-800 dark:text-amber-400 mb-2">
+                Authentic Valley Storefront
+              </div>
+              <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                The Harvest Collection.
+              </h2>
+              <p class="mt-2 text-sm sm:text-base text-neutral-600 dark:text-neutral-400 max-w-xl">
+                100% natural, unadulterated dry fruits, saffron, and Himalayan botanical extracts. Graded and packed in Srinagar.
+              </p>
+            </div>
+
+            <!-- Category filter buttons -->
+            <div class="flex items-center gap-1.5 p-1 bg-neutral-200/60 dark:bg-neutral-800/70 rounded-xl overflow-x-auto max-w-full" id="categoryContainer">
+              <button onclick="setCategory('all')" data-cat="all" class="cat-btn px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap shrink-0 transition-all apple-btn cursor-pointer bg-white dark:bg-neutral-900 text-neutral-950 dark:text-white shadow-xs">All Harvests</button>
+              <button onclick="setCategory('saffron')" data-cat="saffron" class="cat-btn px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap shrink-0 transition-all apple-btn cursor-pointer text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">Mongra Saffron</button>
+              <button onclick="setCategory('walnuts')" data-cat="walnuts" class="cat-btn px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap shrink-0 transition-all apple-btn cursor-pointer text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">Kashmiri Walnuts</button>
+              <button onclick="setCategory('almonds')" data-cat="almonds" class="cat-btn px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap shrink-0 transition-all apple-btn cursor-pointer text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">Mamra Almonds</button>
+              <button onclick="setCategory('dates')" data-cat="dates" class="cat-btn px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap shrink-0 transition-all apple-btn cursor-pointer text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">Medina Dates</button>
+              <button onclick="setCategory('wellness')" data-cat="wellness" class="cat-btn px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap shrink-0 transition-all apple-btn cursor-pointer text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">Kahwa & Wellness</button>
+            </div>
+          </div>
+
+          <!-- Product Grid Container -->
+          <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Dynamically populated via pure static JS below -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Apple-style Botanical Comparison Matrix -->
+      <section id="purity" class="py-16 sm:py-24 bg-neutral-100/60 dark:bg-neutral-900/40 border-t border-neutral-200/70 dark:border-neutral-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto mb-12">
+            <div class="text-xs font-semibold uppercase tracking-widest text-amber-800 dark:text-amber-400 mb-2">
+              The Botanical Standard
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+              Compare The Difference.
+            </h2>
+            <p class="mt-3 text-sm sm:text-base text-neutral-600 dark:text-neutral-400 font-light">
+              Commercial markets compromise on oil extraction, chemical bleaching, and synthetic dying. See how Kashmir Arova produces compare.
+            </p>
+
+            <div class="mt-6 inline-flex p-1 bg-white dark:bg-neutral-800/80 rounded-xl border border-neutral-200 dark:border-neutral-700/60 shadow-xs" id="comparisonNav">
+              <button onclick="renderComparison(0)" class="comp-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all apple-btn cursor-pointer bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 shadow-xs">Mamra Almonds</button>
+              <button onclick="renderComparison(1)" class="comp-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all apple-btn cursor-pointer text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white">Mongra Saffron</button>
+              <button onclick="renderComparison(2)" class="comp-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all apple-btn cursor-pointer text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white">Snow-White Walnuts</button>
+            </div>
+          </div>
+
+          <div id="comparisonCard" class="bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-sm overflow-hidden">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Valley Heritage & Origin Story -->
+      <section id="heritage" class="py-16 sm:py-24 border-t border-neutral-200/70 dark:border-neutral-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-3xl mx-auto text-center mb-16">
+            <div class="text-xs font-semibold uppercase tracking-widest text-amber-800 dark:text-amber-400 mb-2">
+              The Valley Origin
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+              Rooted in the Soil of Kashmir.
+            </h2>
+            <p class="mt-3 text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-light">
+              Centuries of Kashmiri agrarian mastery distilled into minimal, elegant jars and vacuum packs. We preserve nature exactly as it leaves the orchard.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="p-6 rounded-2xl bg-white dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800/80">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-400 flex items-center justify-center mb-5 font-bold">1</div>
+              <h3 class="text-base font-semibold text-neutral-900 dark:text-white mb-2">Pristine 1,600m Altitude</h3>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed font-light">
+                The Himalayan plateau creates wide diurnal temperature swings, forcing the almond and walnut trees to concentrate protective essential fatty acids and aromatics.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800/80">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-400 flex items-center justify-center mb-5 font-bold">2</div>
+              <h3 class="text-base font-semibold text-neutral-900 dark:text-white mb-2">Glacial Snowmelt Fed</h3>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed font-light">
+                No chemical municipal irrigation. Our orchards drink directly from pristine Pir Panjal snowmelt, imparting a signature sweetness and mineral clarity.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800/80">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-400 flex items-center justify-center mb-5 font-bold">3</div>
+              <h3 class="text-base font-semibold text-neutral-900 dark:text-white mb-2">Sun-Cured In Clean Air</h3>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed font-light">
+                Instead of rapid industrial kilns or sulfur bleaching chambers, all Kashmir Arova nuts and saffron threads are cured under mild Himalayan autumn sunshine.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800/80">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-400 flex items-center justify-center mb-5 font-bold">4</div>
+              <h3 class="text-base font-semibold text-neutral-900 dark:text-white mb-2">Zero Adulteration Seal</h3>
+              <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed font-light">
+                Every batch of Pampore Mongra Saffron is tested for Crocin coloring strength (>240 units) and packaged in sealed glass jars right in Srinagar.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-16 p-8 sm:p-12 rounded-3xl bg-neutral-100/70 dark:bg-neutral-900/80 border border-neutral-200/80 dark:border-neutral-800 text-center max-w-4xl mx-auto">
+            <p class="text-lg sm:text-2xl font-serif italic text-neutral-800 dark:text-neutral-200 leading-relaxed">
+              "Real Kashmiri saffron does not scream with artificial scarlet dye. It whispers with a deep persistent crimson thread that yields an ethereal honeyed gold."
+            </p>
+            <div class="mt-4 text-xs font-semibold uppercase tracking-wider text-amber-800 dark:text-amber-400">
+              Kashmir Arova Quality Manifesto · Srinagar, Kashmir
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Connoisseur Reviews -->
+      <section class="py-16 sm:py-24 border-t border-neutral-200/70 dark:border-neutral-800/80 bg-neutral-50/50 dark:bg-neutral-950/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto mb-14">
+            <div class="text-xs font-semibold uppercase tracking-widest text-amber-800 dark:text-amber-400 mb-2">
+              Connoisseur Reviews
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+              Tested & Trusted Across Homes.
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xs flex flex-col justify-between">
+              <div>
+                <div class="flex text-amber-500 mb-4">★★★★★</div>
+                <p class="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed font-light mb-6">
+                  "Having grown up in Kashmir, I know real saffron when I smell it. The moment you place a single thread of this Mongra in warm milk, it blooms into a brilliant gold without turning reddish-orange prematurely. True Grade A1 purity."
+                </p>
+              </div>
+              <div class="pt-4 border-t border-neutral-100 dark:border-neutral-800 flex justify-between items-center text-xs">
+                <div>
+                  <div class="font-semibold text-neutral-900 dark:text-white">Dr. Tariq M.</div>
+                  <div class="text-neutral-500">Srinagar / New Delhi</div>
+                </div>
+                <div class="text-emerald-600 text-[11px] font-medium">✓ Verified Harvest</div>
+              </div>
+            </div>
+
+            <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xs flex flex-col justify-between">
+              <div>
+                <div class="flex text-amber-500 mb-4">★★★★★</div>
+                <p class="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed font-light mb-6">
+                  "The oil content is extraordinary compared to the dry California almonds in supermarkets. When soaked overnight, the skins peel effortlessly and the nutty sweetness is unbelievable."
+                </p>
+              </div>
+              <div class="pt-4 border-t border-neutral-100 dark:border-neutral-800 flex justify-between items-center text-xs">
+                <div>
+                  <div class="font-semibold text-neutral-900 dark:text-white">Ananya Deshmukh</div>
+                  <div class="text-neutral-500">Mumbai</div>
+                </div>
+                <div class="text-emerald-600 text-[11px] font-medium">✓ Verified Harvest</div>
+              </div>
+            </div>
+
+            <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xs flex flex-col justify-between">
+              <div>
+                <div class="flex text-amber-500 mb-4">★★★★★</div>
+                <p class="text-xs sm:text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed font-light mb-6">
+                  "Not a single bitter or rancid piece in the 1kg pack. They arrive crisp, milky-white, and fragrant. The WhatsApp ordering process was smooth and delivery was prompt."
+                </p>
+              </div>
+              <div class="pt-4 border-t border-neutral-100 dark:border-neutral-800 flex justify-between items-center text-xs">
+                <div>
+                  <div class="font-semibold text-neutral-900 dark:text-white">Vikramaditya Sengupta</div>
+                  <div class="text-neutral-500">Bengaluru</div>
+                </div>
+                <div class="text-emerald-600 text-[11px] font-medium">✓ Verified Harvest</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dedicated WhatsApp Concierge Section -->
+      <section id="concierge" class="py-16 sm:py-24 bg-neutral-900 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-7">
+              <div class="text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-3 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                Direct WhatsApp Concierge Desk
+              </div>
+
+              <h2 class="text-3xl sm:text-5xl font-bold tracking-tight leading-tight text-white mb-6">
+                Connect with our harvest desk in Srinagar.
+              </h2>
+
+              <p class="text-neutral-300 text-sm sm:text-base font-light leading-relaxed mb-8 max-w-xl">
+                Have specific questions about walnut grades, saffron batch testing, bulk wholesale orders, or custom festive hampers? We're available on WhatsApp at <strong class="text-white">+91 70068 12676</strong>.
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-neutral-800 text-xs">
+                <div>
+                  <div class="font-semibold text-white mb-1">🎁 Bespoke Gift Boxes</div>
+                  <div class="text-neutral-400">Handcrafted walnut wood gift boxes for weddings & festive gifting.</div>
+                </div>
+                <div>
+                  <div class="font-semibold text-white mb-1">✈️ Priority Air Courier</div>
+                  <div class="text-neutral-400">Dispatched directly from Srinagar across India & worldwide.</div>
+                </div>
+                <div>
+                  <div class="font-semibold text-white mb-1">⚡ Instant Expert Advice</div>
+                  <div class="text-neutral-400">Direct answers on crop flush, harvest year, and laboratory purity.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- WhatsApp interactive card -->
+            <div class="lg:col-span-5">
+              <div class="rounded-3xl bg-neutral-950/80 p-6 sm:p-8 border border-neutral-800 shadow-2xl backdrop-blur-xl">
+                <div class="flex items-center gap-3 mb-6">
+                  <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-xl">
+                    💬
+                  </div>
+                  <div>
+                    <div class="text-sm font-bold text-white">Kashmir Arova Concierge</div>
+                    <div class="text-xs text-emerald-400">+91 70068 12676</div>
+                  </div>
+                </div>
+
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-xs font-medium text-neutral-300 mb-2">Message to send on WhatsApp:</label>
+                    <textarea id="conciergeMsgInput" rows="3" class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-neutral-900 border border-neutral-700 text-white placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-emerald-400">Hi can I get more Info on your products.</textarea>
+                    <div class="text-[11px] text-neutral-400 mt-1">Pre-filled with your inquiry prompt.</div>
+                  </div>
+
+                  <button onclick="sendConciergeMsg()" class="w-full py-3.5 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-neutral-950 text-xs font-bold apple-btn flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/10 cursor-pointer">
+                    <span>Send Message on WhatsApp</span>
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                  </button>
+
+                  <div class="text-[11px] text-neutral-400 text-center">
+                    Redirects securely to WhatsApp (+91 70068 12676)
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#0A0A0B] text-neutral-600 dark:text-neutral-400 text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
+          
+          <div class="lg:col-span-2 space-y-4">
+            <div class="flex items-center gap-2">
+              <span class="font-serif italic text-xl font-bold text-amber-800 dark:text-amber-400">Kashmir</span>
+              <span class="font-sans font-semibold tracking-wider uppercase text-sm text-neutral-900 dark:text-white">Arova</span>
+            </div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed max-w-sm">
+              Artisanal purveyors of authentic Kashmiri Walnuts, Mamra Almonds, Grade A1 Pampore Mongra Saffron, Medina Dates, and Himalayan wellness botanical harvests.
+            </p>
+            <div class="text-neutral-700 dark:text-neutral-300">
+              Pampore Karewas & Srinagar, Jammu & Kashmir 190001<br />
+              concierge@kashmirarova.com · kashmirarova.com
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-neutral-900 dark:text-white mb-4">Harvest</h4>
+            <ul class="space-y-2">
+              <li><a href="#catalog" class="hover:text-neutral-900 dark:hover:text-white">Pampore Mongra Saffron</a></li>
+              <li><a href="#catalog" class="hover:text-neutral-900 dark:hover:text-white">Snow-White Walnut Giri</a></li>
+              <li><a href="#catalog" class="hover:text-neutral-900 dark:hover:text-white">Kashmiri Mamra Almonds</a></li>
+              <li><a href="#catalog" class="hover:text-neutral-900 dark:hover:text-white">Kagzi In-Shell Walnuts</a></li>
+              <li><a href="#catalog" class="hover:text-neutral-900 dark:hover:text-white">Medina Royal Dates</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-neutral-900 dark:text-white mb-4">Standards</h4>
+            <ul class="space-y-2">
+              <li><a href="#purity" class="hover:text-neutral-900 dark:hover:text-white">GI-Tag Verification</a></li>
+              <li><a href="#purity" class="hover:text-neutral-900 dark:hover:text-white">Zero Chemical Bleaching</a></li>
+              <li><a href="#purity" class="hover:text-neutral-900 dark:hover:text-white">Laboratory Test Reports</a></li>
+              <li><a href="#heritage" class="hover:text-neutral-900 dark:hover:text-white">Cold Mountain Soil</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-neutral-900 dark:text-white mb-4">WhatsApp Desk</h4>
+            <p class="text-neutral-500 dark:text-neutral-400 mb-3 leading-relaxed">Direct line for custom orders:</p>
+            <a href="https://wa.me/917006812676?text=Hi%20can%20I%20get%20more%20Info%20on%20your%20products." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-medium">
+              <span>+91 70068 12676</span>
+            </a>
+            <div class="text-[11px] text-neutral-400 mt-2">Hours: Mon – Sun, 9 AM – 9 PM IST</div>
+          </div>
+        </div>
+
+        <div class="pt-8 border-t border-neutral-100 dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
+          <div>© 2026 Kashmir Arova (kashmirarova.com). Handcrafted with pure Himalayan pride.</div>
+          <div class="flex gap-4">
+            <span>Privacy</span>·<span>Terms</span>·<span>FSSAI Certified</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Floating WhatsApp Action Button -->
+    <div class="fixed bottom-6 right-6 z-40">
+      <a href="https://wa.me/917006812676?text=Hi%20can%20I%20get%20more%20Info%20on%20your%20products." target="_blank" rel="noopener noreferrer" aria-label="Direct WhatsApp Inquiry" class="group flex items-center gap-2.5 px-4 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-xl hover:shadow-2xl transition-all duration-300 apple-btn cursor-pointer border border-emerald-400/30">
+        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        <span class="text-xs font-semibold tracking-wide pr-1">WhatsApp Us</span>
+      </a>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8">
+      <div class="fixed inset-0 bg-black/60 backdrop-blur-md" onclick="closeProductModal()"></div>
+      <div class="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-[#121214] rounded-3xl shadow-2xl border border-neutral-200/80 dark:border-neutral-800 z-10 flex flex-col md:flex-row" id="productModalContent">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Shopping Cart Slide-over Drawer -->
+    <div id="cartDrawer" class="hidden fixed inset-0 z-50 overflow-hidden">
+      <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="toggleCartDrawer(false)"></div>
+      <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+        <div class="w-screen max-w-md bg-white dark:bg-[#121214] shadow-2xl flex flex-col border-l border-neutral-200 dark:border-neutral-800">
+          <div class="p-6 border-b border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🛍️</span>
+              <h2 class="text-base font-bold text-neutral-900 dark:text-white">Harvest Bag (<span id="cartDrawerCount">0</span>)</h2>
+            </div>
+            <button onclick="toggleCartDrawer(false)" class="p-2 rounded-full text-neutral-500 hover:text-neutral-900 dark:hover:text-white cursor-pointer" aria-label="Close cart">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+
+          <div id="cartContent" class="flex-1 flex flex-col overflow-hidden">
+            <!-- Dynamic cart items and checkout buttons -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PURE STATIC JAVASCRIPT: Runs natively with zero build tools required! -->
+    <script>
+      const WHATSAPP_PHONE = '917006812676';
+      const DEFAULT_WA_MSG = 'Hi can I get more Info on your products.';
+
+      // Products Dataset
+      const PRODUCTS = [
+        {
+          id: 'kashmiri-mongra-saffron',
+          name: 'Pampore Mongra Saffron',
+          subtitle: 'Grade A1 GI-Tagged Pure Crimson Stigmata',
+          category: 'saffron',
+          image: './images/product_saffron_mongra.jpg',
+          description: 'Directly sourced from the sun-drenched plateau of Pampore. Only the top deep-crimson tips (Mongra) are hand-separated without yellow style residue, yielding Crocin coloring strength exceeding 240+ units.',
+          notes: 'Intense floral honey aroma · Warm hay · Deep amber release',
+          origin: 'Pampore Karewas, Kashmir (1,630m MSL)',
+          harvest: 'Autumn 2026 Flush (GI Tag Certified)',
+          benefits: ['Natural mood enhancer & cognitive clarity', 'Highest antioxidant crocin & safranal profile', 'Revered Ayurvedic elixir for radiant skin glow'],
+          options: [
+            { label: '1 Gram', price: 490, original: 590 },
+            { label: '2 Grams', price: 940, original: 1140 },
+            { label: '5 Grams Collector Jar', price: 2250, original: 2750 }
+          ],
+          rating: 4.96,
+          reviews: 142
+        },
+        {
+          id: 'kashmiri-snow-walnut-giri',
+          name: 'Kashmir Snow-White Walnut Halves (Giri)',
+          subtitle: 'Cold-Pressed Naturally Sweet Kernel Halves',
+          category: 'walnuts',
+          image: './images/product_kashmiri_walnuts.jpg',
+          description: 'Hand-cracked intact half kernels (Akhrot Giri) harvested from wild walnut trees in Kupwara and Shopian. 100% unbleached, buttery-sweet, with zero bitter aftertaste and exceptionally high omega-3 fatty acids.',
+          notes: 'Creamy velvet sweetness · Delicate milky crunch · Zero bitterness',
+          origin: 'Kupwara & Shopian Valley, Kashmir (1,920m MSL)',
+          harvest: 'Current Harvest Flush (GI Tag Certified)',
+          benefits: ['Highest plant-based Omega-3 (ALA) for brain health', 'Supports cardiovascular & endothelial health', 'Natural melatonin source promoting restful sleep'],
+          options: [
+            { label: '250g Vacuum Pack', price: 520, original: 620 },
+            { label: '500g Fresh Seal', price: 980, original: 1180 },
+            { label: '1 Kg Family Reserve', price: 1890, original: 2290 }
+          ],
+          rating: 4.94,
+          reviews: 98
+        },
+        {
+          id: 'kashmiri-mamra-almonds',
+          name: 'Kashmiri Mamra Almonds (High Oil)',
+          subtitle: 'Unpasteurized Heritage Crop with ~42% Natural Oil',
+          category: 'almonds',
+          image: './images/product_mamra_almonds.jpg',
+          description: 'The undisputed royalty of almonds. Kashmiri Mamra grows without chemical hybridization or artificial irrigation. Characterized by its concave boat shape, packing up to 42% natural almond oil—3x higher than standard California almonds.',
+          notes: 'Dense satisfying crunch · Rich almond milk sweetness · Intense aromatic oils',
+          origin: 'Pulwama & Badgam Valleys (1,580m MSL)',
+          harvest: 'Current Autumn Harvest (GI Tag Certified)',
+          benefits: ['Over 3x higher healthy monounsaturated oil profile', 'Ayurvedic Medhya Rasayana for memory enhancement', 'High natural Vitamin E for cellular defense'],
+          options: [
+            { label: '250g Pouch', price: 890, original: 1050 },
+            { label: '500g Pouch', price: 1720, original: 2050 },
+            { label: '1 Kg Heritage Box', price: 3350, original: 3950 }
+          ],
+          rating: 4.98,
+          reviews: 167
+        },
+        {
+          id: 'royal-medjool-ajwa-dates',
+          name: 'Royal Medjool & Medina Ajwa Dates',
+          subtitle: 'Hand-Selected Jumbo Succulent Dates',
+          category: 'dates',
+          image: './images/product_royal_dates.jpg',
+          description: 'Curated royal dates with caramel melt-in-mouth texture, translucent amber flesh, and natural syrupy notes. Selected kernel by kernel to ensure zero dry fibers, maximum moisture balance, and sublime clean sweetness.',
+          notes: 'Rich butterscotch · Wild caramel · Tender bite · Natural honeyed finish',
+          origin: 'Medina & Oasis Groves',
+          harvest: 'Prime Current Season (Grade A Select)',
+          benefits: ['Instant wholesome low-GI sustained energy release', 'Abundant in potassium, magnesium, and dietary fiber', 'Natural replacement for refined sugars'],
+          options: [
+            { label: '500g Luxury Box', price: 650, original: 780 },
+            { label: '1 Kg Royal Box', price: 1250, original: 1500 }
+          ],
+          rating: 4.92,
+          reviews: 84
+        },
+        {
+          id: 'kashmiri-kagzi-walnuts-inshell',
+          name: 'Kashmiri Kagzi Walnuts (In-Shell)',
+          subtitle: 'Paper-Thin Shell Easily Crackable with Bare Hands',
+          category: 'walnuts',
+          image: './images/product_kashmiri_walnuts.jpg',
+          description: 'Kagzi literally translates to paper-like. The outer shell is so delicately thin that you can crack two walnuts together gently in the palm of your hand. Nature’s sealed freshness capsule.',
+          notes: 'Fresh orchard crunch · Mild sweet walnut milk · Clean earthy finish',
+          origin: 'Ganderbal Foothills (1,800m MSL)',
+          harvest: 'Current Harvest Flush (GI Tag Certified)',
+          benefits: ['Shell-protected antioxidants in virgin state', 'Heart-protective polyunsaturated fats', 'High dietary plant sterols'],
+          options: [
+            { label: '500g Mesh Bag', price: 480, original: 580 },
+            { label: '1 Kg Jute Bag', price: 890, original: 1090 }
+          ],
+          rating: 4.89,
+          reviews: 63
+        },
+        {
+          id: 'shahi-kashmiri-kahwa',
+          name: 'Royal Kashmiri Saffron Kahwa Tea',
+          subtitle: 'Whole Green Leaf Infused with Saffron & Valley Spices',
+          category: 'wellness',
+          image: './images/hero_kashmir_arova.jpg',
+          description: 'A thousand-year-old Kashmiri royal blend. Prepared with handpicked green tea leaves from the valley foothills, crushed green cardamom pods, cinnamon barks, Kashmiri rose petals, and genuine strands of Pampore Mongra saffron.',
+          notes: 'Soothing warming spices · Saffron perfume · Silky green tea tannins',
+          origin: 'Srinagar Old Heritage Recipes (1,600m MSL)',
+          harvest: 'Small Batch Artisan Crafted',
+          benefits: ['Digestive comfort & thermal warming', 'Immune support with raw whole valley spices', 'Zero artificial aroma or synthetic colorings'],
+          options: [
+            { label: '100g Tin (40 Cups)', price: 420, original: 500 },
+            { label: '250g Gift Tin', price: 920, original: 1100 }
+          ],
+          rating: 4.95,
+          reviews: 112
+        }
+      ];
+
+      // Comparison Data
+      const COMPARISONS = [
+        {
+          name: 'Kashmir Arova Mamra',
+          market: 'Commercial California Almonds',
+          metrics: [
+            { label: 'Natural Oil Content', arova: '38% – 42% (Rich dense lipids)', market: '10% – 15% (Industrial dry pasteurized)' },
+            { label: 'Cultivation Method', arova: 'Organic Heritage Non-Hybrid Trees', market: 'Mass Monoculture Chemical Grafting' },
+            { label: 'PPO Gas Sterilization', arova: 'Zero Chemical Treatment (Sun-Cured)', market: 'Propylene Oxide Gas Treated' },
+            { label: 'Taste & Texture', arova: 'Intense nutty, buttery sweet crunch', market: 'Flat, mildly woody, requires roasting' }
+          ]
+        },
+        {
+          name: 'Kashmir Arova Grade A1 Mongra',
+          market: 'Commercial Market Saffron',
+          metrics: [
+            { label: 'Crocin Coloring Strength', arova: '240 – 260 Units (All-crimson tips)', market: '110 – 160 Units (Diluted with yellow style)' },
+            { label: 'Natural Safranal Aroma', arova: 'Potent floral hay aroma that lasts months', market: 'Subtle or synthetically fragranced' },
+            { label: 'Purity Water Test', arova: 'Thread stays crimson; liquid turns pure golden', market: 'Thread bleaches white; artificial dyes disperse' },
+            { label: 'GI Tag Provenance', arova: '100% Pampore Certified Plot Traceable', market: 'Unknown Mixed / Adulterated stock' }
+          ]
+        },
+        {
+          name: 'Kashmir Arova Snow Walnuts',
+          market: 'Commercial Bleached Walnuts',
+          metrics: [
+            { label: 'Chemical Chlorine Bleaching', arova: 'Zero Chlorine / Zero Peroxide', market: 'Chemically brightened with chlorine' },
+            { label: 'Omega-3 Freshness', arova: 'Cold-Preserved sweet non-bitter kernel', market: 'Aged oxidized warehouse stock (bitter)' },
+            { label: 'Shell Thickness (Kagzi)', arova: 'Soft Paper Shell (crackable by hand)', market: 'Hard Stone Shell (requires nutcracker)' }
+          ]
+        }
+      ];
+
+      // Cart State (Persisted in localStorage)
+      let cart = [];
+      try {
+        const saved = localStorage.getItem('kashmir_arova_cart');
+        if (saved) cart = JSON.parse(saved);
+      } catch (e) {}
+
+      // Selected Options state: productId -> option index
+      let selectedOptionsState = {};
+      PRODUCTS.forEach(p => selectedOptionsState[p.id] = 0);
+
+      // Current filter category
+      let currentCategory = 'all';
+
+      // Theme toggle
+      function initTheme() {
+        const saved = localStorage.getItem('kashmir_arova_theme');
+        const isDark = saved === 'dark';
+        applyTheme(isDark);
+      }
+
+      function toggleTheme() {
+        const isDark = document.documentElement.classList.contains('dark');
+        applyTheme(!isDark);
+      }
+
+      function applyTheme(isDark) {
+        const html = document.documentElement;
+        const icon = document.getElementById('themeIcon');
+        const text = document.getElementById('themeText');
+        if (isDark) {
+          html.classList.add('dark');
+          localStorage.setItem('kashmir_arova_theme', 'dark');
+          if (icon) icon.textContent = '☀️';
+          if (text) text.textContent = 'Light';
+        } else {
+          html.classList.remove('dark');
+          localStorage.setItem('kashmir_arova_theme', 'light');
+          if (icon) icon.textContent = '🌙';
+          if (text) text.textContent = 'Dark';
+        }
+      }
+
+      // Render Products
+      function renderProducts() {
+        const container = document.getElementById('productGrid');
+        if (!container) return;
+
+        const filtered = currentCategory === 'all'
+          ? PRODUCTS
+          : PRODUCTS.filter(p => p.category === currentCategory);
+
+        container.innerHTML = filtered.map(p => {
+          const optIdx = selectedOptionsState[p.id] || 0;
+          const currentOpt = p.options[optIdx];
+
+          const optionsHtml = p.options.map((opt, idx) => {
+            const isSelected = idx === optIdx;
+            return `
+              <button onclick="selectOption('${p.id}', ${idx})" class="px-2.5 py-1 text-xs font-medium rounded-md transition-all apple-btn cursor-pointer ${
+                isSelected
+                  ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 shadow-xs'
+                  : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
+              }">
+                ${opt.label}
+              </button>
+            `;
+          }).join('');
+
+          const waUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(`Hi, I would like to inquire about availability and details for:\n\n*Product:* ${p.name}\n*Packaging:* ${currentOpt.label}\n\nPlease share current harvest rate and delivery timeframe.`)}`;
+
+          return `
+            <div class="group flex flex-col justify-between rounded-2xl bg-white dark:bg-neutral-900/90 border border-neutral-200/80 dark:border-neutral-800/80 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300">
+              
+              <!-- Image Slot -->
+              <div onclick="openProductModal('${p.id}')" class="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-950 cursor-pointer">
+                <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105" />
+                <div class="absolute bottom-3 left-3">
+                  <span class="px-2.5 py-1 rounded-md text-[11px] font-medium bg-white/90 dark:bg-neutral-950/90 text-neutral-800 dark:text-neutral-200 backdrop-blur-sm border border-black/5 dark:border-white/10">
+                    ${p.origin.split(',')[0]}
+                  </span>
+                </div>
+                <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span class="flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-black/70 text-white backdrop-blur-sm">
+                    👁️ Quick View
+                  </span>
+                </div>
+              </div>
+
+              <!-- Content -->
+              <div class="p-5 sm:p-6 flex flex-col flex-1 justify-between">
+                <div>
+                  <div class="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400 mb-2">
+                    <span class="capitalize">${p.category}</span>
+                    <span>·</span>
+                    <span class="text-amber-700 dark:text-amber-400 font-medium">★ ${p.rating}</span>
+                    <span>·</span>
+                    <span>(${p.reviews} reviews)</span>
+                  </div>
+
+                  <h3 onclick="openProductModal('${p.id}')" class="text-lg font-semibold text-neutral-900 dark:text-white leading-snug group-hover:text-amber-800 dark:group-hover:text-amber-300 transition-colors cursor-pointer">
+                    ${p.name}
+                  </h3>
+                  <p class="mt-1 text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2">
+                    ${p.subtitle}
+                  </p>
+
+                  <!-- Weight Selector -->
+                  <div class="mt-4 pt-3 border-t border-neutral-100 dark:border-neutral-800/80">
+                    <div class="text-[11px] font-medium text-neutral-500 dark:text-neutral-400 mb-2">Select Packaging:</div>
+                    <div class="flex flex-wrap gap-1.5">
+                      ${optionsHtml}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Action Row (No Prices) -->
+                <div class="mt-6 pt-4 border-t border-neutral-100 dark:border-neutral-800/80 flex items-center justify-between gap-3">
+                  <div>
+                    <div class="text-[11px] text-neutral-500 dark:text-neutral-400">Packaging</div>
+                    <div class="text-xs font-semibold text-neutral-900 dark:text-white">
+                      ${currentOpt.label}
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-2">
+                    <!-- WhatsApp Inquire -->
+                    <a href="${waUrl}" target="_blank" rel="noopener noreferrer" title="Inquire on WhatsApp" class="px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/60 dark:hover:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 apple-btn flex items-center gap-1.5 text-xs font-medium cursor-pointer">
+                      <svg class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                      <span>Inquire</span>
+                    </a>
+
+                    <!-- Add to Bag -->
+                    <button onclick="addToCart('${p.id}', ${optIdx})" class="px-3 py-2 rounded-xl text-xs font-medium apple-btn flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-900 cursor-pointer" title="Add to Bag">
+                      <span>+ Bag</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function setCategory(cat) {
+        currentCategory = cat;
+        const buttons = document.querySelectorAll('.cat-btn');
+        buttons.forEach(b => {
+          if (b.dataset.cat === cat) {
+            b.className = 'cat-btn px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap shrink-0 transition-all apple-btn cursor-pointer bg-white dark:bg-neutral-900 text-neutral-950 dark:text-white shadow-xs';
+          } else {
+            b.className = 'cat-btn px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap shrink-0 transition-all apple-btn cursor-pointer text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white';
+          }
+        });
+        renderProducts();
+      }
+
+      function selectOption(productId, optIdx) {
+        selectedOptionsState[productId] = optIdx;
+        renderProducts();
+      }
+
+      // Comparison Matrix Render
+      function renderComparison(idx) {
+        const buttons = document.querySelectorAll('.comp-btn');
+        buttons.forEach((b, i) => {
+          if (i === idx) {
+            b.className = 'comp-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all apple-btn cursor-pointer bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 shadow-xs';
+          } else {
+            b.className = 'comp-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all apple-btn cursor-pointer text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white';
+          }
+        });
+
+        const comp = COMPARISONS[idx];
+        const container = document.getElementById('comparisonCard');
+        if (!container) return;
+
+        container.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-12 border-b border-neutral-200 dark:border-neutral-800">
+            <div class="md:col-span-4 p-5 sm:p-6 bg-neutral-50/50 dark:bg-neutral-950/40 flex items-center">
+              <span class="text-xs font-semibold uppercase tracking-wider text-neutral-500">Purity Parameter</span>
+            </div>
+            <div class="md:col-span-4 p-5 sm:p-6 bg-amber-50/40 dark:bg-amber-950/20 border-t md:border-t-0 md:border-l border-neutral-200 dark:border-neutral-800 flex items-center gap-2">
+              <span class="text-amber-600 font-bold">🛡️</span>
+              <div>
+                <div class="text-sm font-bold text-neutral-900 dark:text-white">${comp.name}</div>
+                <div class="text-[11px] text-amber-800 dark:text-amber-400 font-medium">Direct Valley Harvest</div>
+              </div>
+            </div>
+            <div class="md:col-span-4 p-5 sm:p-6 bg-neutral-50/20 dark:bg-neutral-950/20 border-t md:border-t-0 md:border-l border-neutral-200 dark:border-neutral-800 flex items-center">
+              <div>
+                <div class="text-sm font-medium text-neutral-500 dark:text-neutral-400">${comp.market}</div>
+                <div class="text-[11px] text-neutral-400">Mass Market Commercial Standard</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divide-y divide-neutral-100 dark:divide-neutral-800">
+            ${comp.metrics.map(m => `
+              <div class="grid grid-cols-1 md:grid-cols-12 text-sm">
+                <div class="md:col-span-4 p-5 sm:p-6 font-medium text-neutral-800 dark:text-neutral-200 flex items-center">
+                  ${m.label}
+                </div>
+                <div class="md:col-span-4 p-5 sm:p-6 bg-amber-50/10 dark:bg-amber-950/10 md:border-l border-neutral-200 dark:border-neutral-800 flex items-start gap-3">
+                  <span class="text-emerald-600 font-bold">✓</span>
+                  <div>
+                    <div class="font-semibold text-neutral-900 dark:text-white">${m.arova}</div>
+                  </div>
+                </div>
+                <div class="md:col-span-4 p-5 sm:p-6 md:border-l border-neutral-200 dark:border-neutral-800 flex items-start gap-3">
+                  <span class="text-neutral-400 font-bold">✕</span>
+                  <div class="text-neutral-500 dark:text-neutral-400">${m.market}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="p-6 bg-neutral-50 dark:bg-neutral-950/60 border-t border-neutral-200 dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-xs text-neutral-500 dark:text-neutral-400">
+              Need lab test certificates or bulk sample verification? Connect directly with our Srinagar quality team.
+            </div>
+            <a href="https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent('Hi can I get more Info on your products.')}" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-900 text-xs font-medium apple-btn flex items-center gap-2 shrink-0">
+              <span>Ask on WhatsApp</span>
+              <span>→</span>
+            </a>
+          </div>
+        `;
+      }
+
+      // Shopping Cart Functions
+      function addToCart(productId, optIdx) {
+        const p = PRODUCTS.find(prod => prod.id === productId);
+        if (!p) return;
+        const opt = p.options[optIdx];
+
+        const existing = cart.find(item => item.productId === productId && item.optionLabel === opt.label);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({
+            productId: p.id,
+            name: p.name,
+            image: p.image,
+            optionLabel: opt.label,
+            price: opt.price,
+            quantity: 1
+          });
+        }
+
+        saveCart();
+        renderCart();
+        toggleCartDrawer(true);
+      }
+
+      function updateCartQty(productId, optionLabel, delta) {
+        const item = cart.find(i => i.productId === productId && i.optionLabel === optionLabel);
+        if (!item) return;
+        item.quantity += delta;
+        if (item.quantity <= 0) {
+          cart = cart.filter(i => !(i.productId === productId && i.optionLabel === optionLabel));
+        }
+        saveCart();
+        renderCart();
+      }
+
+      function removeCartItem(productId, optionLabel) {
+        cart = cart.filter(i => !(i.productId === productId && i.optionLabel === optionLabel));
+        saveCart();
+        renderCart();
+      }
+
+      function saveCart() {
+        try {
+          localStorage.setItem('kashmir_arova_cart', JSON.stringify(cart));
+        } catch (e) {}
+        updateCartBadge();
+      }
+
+      function updateCartBadge() {
+        const count = cart.reduce((a, b) => a + b.quantity, 0);
+        const badge = document.getElementById('navCartCount');
+        const drawerCount = document.getElementById('cartDrawerCount');
+        if (badge) {
+          badge.textContent = count;
+          badge.style.display = count > 0 ? 'flex' : 'none';
+        }
+        if (drawerCount) {
+          drawerCount.textContent = count;
+        }
+      }
+
+      function toggleCartDrawer(open) {
+        const drawer = document.getElementById('cartDrawer');
+        if (!drawer) return;
+        if (open) {
+          drawer.classList.remove('hidden');
+          renderCart();
+        } else {
+          drawer.classList.add('hidden');
+        }
+      }
+
+      function renderCart() {
+        const container = document.getElementById('cartContent');
+        if (!container) return;
+
+        if (cart.length === 0) {
+          container.innerHTML = `
+            <div class="flex-1 p-6 flex flex-col items-center justify-center text-center">
+              <div class="text-4xl mb-3">🛍️</div>
+              <h3 class="text-base font-semibold text-neutral-900 dark:text-white mb-1">Your Bag is Empty</h3>
+              <p class="text-xs text-neutral-500 max-w-xs mb-6">Explore our pure Pampore saffron, sweet snow walnut halves, and high-oil Mamra almonds.</p>
+              <button onclick="toggleCartDrawer(false)" class="px-6 py-2.5 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-medium apple-btn cursor-pointer">Explore Catalog</button>
+            </div>
+          `;
+          return;
+        }
+
+        const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+        const itemsHtml = cart.map(item => `
+          <div class="pt-4 first:pt-0 flex gap-4">
+            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover bg-neutral-100 dark:bg-neutral-900 shrink-0" />
+            <div class="flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-start justify-between gap-2">
+                  <h4 class="text-xs font-semibold text-neutral-900 dark:text-white line-clamp-1">${item.name}</h4>
+                  <button onclick="removeCartItem('${item.productId}', '${item.optionLabel}')" class="text-neutral-400 hover:text-red-500 text-xs" title="Remove">✕</button>
+                </div>
+                <div class="text-[11px] text-neutral-500 dark:text-neutral-400 mt-0.5">${item.optionLabel}</div>
+              </div>
+              <div class="flex items-center justify-between mt-2">
+                <div class="flex items-center border border-neutral-200 dark:border-neutral-700 rounded-md">
+                  <button onclick="updateCartQty('${item.productId}', '${item.optionLabel}', -1)" class="px-2 py-0.5 text-xs text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800">-</button>
+                  <span class="px-2 text-xs font-semibold tabular-nums text-neutral-900 dark:text-white">${item.quantity}</span>
+                  <button onclick="updateCartQty('${item.productId}', '${item.optionLabel}', 1)" class="px-2 py-0.5 text-xs text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800">+</button>
+                </div>
+                <div class="text-[11px] text-amber-700 dark:text-amber-400 font-medium">
+                  Inquire Rates
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        container.innerHTML = `
+          <div class="px-6 py-2.5 bg-neutral-50 dark:bg-neutral-900/80 border-b border-neutral-100 dark:border-neutral-800 text-[11px] text-neutral-600 dark:text-neutral-400 flex items-center justify-between">
+            <span>Direct Orchard Harvest</span>
+            <span class="font-semibold text-amber-700 dark:text-amber-400">Pampore & Kupwara Provenance</span>
+          </div>
+
+          <div class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-neutral-100 dark:divide-neutral-800">
+            ${itemsHtml}
+          </div>
+
+          <div class="p-4 bg-neutral-50 dark:bg-neutral-900/40 border-t border-neutral-100 dark:border-neutral-800">
+            <label class="block text-[11px] font-medium text-neutral-600 dark:text-neutral-400 mb-1">Delivery City / Notes (Optional):</label>
+            <input id="cartDeliveryNotes" type="text" placeholder="e.g. Mumbai, New Delhi, or gift hamper note" class="w-full px-3 py-2 text-xs rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white focus:outline-none" />
+          </div>
+
+          <div class="p-6 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#121214] space-y-3">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-neutral-500">Selected Varieties</span>
+              <span class="font-bold text-neutral-900 dark:text-white">${totalItems} items</span>
+            </div>
+
+            <!-- WhatsApp Inquiry Checkout -->
+            <button onclick="checkoutViaWhatsApp()" class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold apple-btn flex items-center justify-center gap-2 shadow-xs cursor-pointer">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              <span>Inquire All on WhatsApp</span>
+            </button>
+
+            <div class="text-[10px] text-neutral-400 text-center">
+              100% Genuine GI Kashmir Seal · Zero Artificial Preservatives
+            </div>
+          </div>
+        `;
+      }
+
+      function checkoutViaWhatsApp() {
+        const notesInput = document.getElementById('cartDeliveryNotes');
+        const notes = notesInput ? notesInput.value.trim() : '';
+
+        let text = `*Harvest Inquiry via kashmirarova.com*\n\nHello Kashmir Arova Concierge,\nI would like to inquire about current harvest rates and availability for:\n\n`;
+        cart.forEach((item, index) => {
+          text += `${index + 1}. *${item.name}*\n   Packaging: ${item.optionLabel} (Qty: ${item.quantity})\n\n`;
+        });
+        if (notes) text += `*Delivery City / Notes:* ${notes}\n\n`;
+        text += `Please share current harvest rates and delivery timeframe. Thank you!`;
+
+        const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+      }
+
+      // Product Quick View Modal
+      function openProductModal(productId) {
+        const p = PRODUCTS.find(prod => prod.id === productId);
+        if (!p) return;
+
+        const modal = document.getElementById('productModal');
+        const content = document.getElementById('productModalContent');
+        if (!modal || !content) return;
+
+        const optIdx = selectedOptionsState[p.id] || 0;
+        const currentOpt = p.options[optIdx];
+
+        content.innerHTML = `
+          <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-black/40 hover:bg-black/60 text-white backdrop-blur-sm cursor-pointer" aria-label="Close details">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+
+          <div class="md:w-1/2 relative bg-neutral-100 dark:bg-neutral-950 min-h-[300px]">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover object-center" />
+            <div class="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-white/90 dark:bg-neutral-950/90 backdrop-blur-md border border-neutral-200/50 dark:border-neutral-800/80 text-xs">
+              <div class="font-semibold text-neutral-900 dark:text-white">📍 ${p.origin}</div>
+              <div class="text-[11px] text-neutral-500 mt-0.5">${p.harvest}</div>
+            </div>
+          </div>
+
+          <div class="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div class="text-xs text-neutral-500 capitalize mb-1">${p.category} · ★ ${p.rating}</div>
+              <h3 class="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white">${p.name}</h3>
+              <p class="mt-1 text-xs text-amber-800 dark:text-amber-400 font-medium">${p.subtitle}</p>
+              <p class="mt-4 text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed font-light">${p.description}</p>
+              
+              <div class="mt-4 pt-3 border-t border-neutral-100 dark:border-neutral-800">
+                <div class="text-[11px] font-semibold uppercase text-neutral-500 mb-1">Aroma & Profile</div>
+                <div class="text-xs text-neutral-700 dark:text-neutral-300">${p.notes}</div>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-neutral-100 dark:border-neutral-800">
+                <div class="text-[11px] font-semibold uppercase text-neutral-500 mb-1">Key Benefits</div>
+                <ul class="text-xs text-neutral-600 dark:text-neutral-300 space-y-1">
+                  ${p.benefits.map(b => `<li>• ${b}</li>`).join('')}
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-5 border-t border-neutral-200 dark:border-neutral-800">
+              <div class="mb-4">
+                <div class="text-[11px] text-neutral-500">Selected Packaging:</div>
+                <div class="text-base font-bold text-neutral-900 dark:text-white">${currentOpt.label}</div>
+                <div class="text-[11px] text-amber-700 dark:text-amber-400 mt-0.5">Direct orchard harvest · Inquire directly on WhatsApp for current rates</div>
+              </div>
+
+              <div class="flex gap-2.5">
+                <a href="https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(`Hi, I would like to inquire about availability and details for:\n\n*Product:* ${p.name}\n*Packaging:* ${currentOpt.label}\n\nPlease share current harvest rate and delivery timeframe.`)}" target="_blank" rel="noopener noreferrer" class="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold apple-btn flex items-center justify-center gap-2">
+                  <span>Inquire on WhatsApp</span>
+                </a>
+                <button onclick="addToCart('${p.id}', ${optIdx}); closeProductModal();" class="flex-1 py-3 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-neutral-900 text-xs font-semibold apple-btn">
+                  <span>Add to Bag</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        modal.classList.remove('hidden');
+      }
+
+      function closeProductModal() {
+        const modal = document.getElementById('productModal');
+        if (modal) modal.classList.add('hidden');
+      }
+
+      // Concierge direct sender
+      function sendConciergeMsg() {
+        const input = document.getElementById('conciergeMsgInput');
+        const text = input ? input.value.trim() : DEFAULT_WA_MSG;
+        const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text || DEFAULT_WA_MSG)}`;
+        window.open(url, '_blank');
+      }
+
+      // Initialize on load
+      document.addEventListener('DOMContentLoaded', () => {
+        initTheme();
+        renderProducts();
+        renderComparison(0);
+        updateCartBadge();
+      });
+      // Also run immediately in case DOM is already parsed
+      initTheme();
+      renderProducts();
+      renderComparison(0);
+      updateCartBadge();
+    </script>
   </body>
 </html>

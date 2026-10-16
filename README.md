@@ -4,70 +4,52 @@ WhatsApp Concierge: **+91 70068 12676** (`70068 12676`)
 
 ---
 
-## Why did opening `index.html` directly show a white screen?
+## 🚀 100% Pure Static Website (Ready Out-of-the-Box)
 
-This website is built with **React and Vite**. Modern web browsers enforce security policies (CORS) that block ES modules and uncompiled TypeScript (`.tsx`) files when opened directly via `file:///...` in file explorer.
+This website is now **completely static**:
 
-To view and run the website on your local computer, choose **any of the simple methods below**:
+1. **Double-Click & Open Immediately**:
+   - Simply double-click **`index.html`** in any browser (Chrome, Safari, Edge, Firefox).
+   - **No Node.js, npm, or terminal commands are required!**
+   - It will open instantly with all images, dark mode toggle, and interactive features working.
 
----
-
-## Quick Start (Pick One)
-
-### Method 1: The Easiest 1-Click Launch
-- **On Windows**: Double-click the file named **`start.bat`**.
-- **On Mac / Linux**: Double-click or run **`./start.sh`** in terminal.
-
-This automatically installs dependencies and opens the site at `http://localhost:3000`.
-
----
-
-### Method 2: Standard Terminal Launch (Recommended)
-1. Open your terminal or Command Prompt inside this folder.
-2. Run:
-   ```bash
-   npm install
-   npm run dev
-   ```
-3. Open your browser to: **`http://localhost:3000`**
+2. **Deploy Anywhere in Seconds**:
+   - Upload `index.html` and the `images/` folder directly to ANY web host:
+     - cPanel / File Manager
+     - GoDaddy / Hostinger / Namecheap
+     - GitHub Pages
+     - Cloudflare Pages / Netlify / Vercel
+     - Any shared hosting or Apache/Nginx web server.
 
 ---
 
-### Method 3: Run the Compiled Production Build
-We have pre-built the entire production bundle for you in the `dist/` directory!
-Run:
-```bash
-npm run preview
-```
-Or if you use Python:
-```bash
-python -m http.server 3000 --directory dist
-```
-Then visit `http://localhost:3000`.
+## ✨ Features Included
 
----
-
-### Method 4: Using VS Code "Live Server"
-1. Open this project in **VS Code**.
-2. Right-click on `dist/index.html` (the compiled production version) and click **"Open with Live Server"**.
-
----
-
-## Key Features
-
-1. **Apple-Inspired Minimal Design**: Generous whitespace, refined typography pairing (*Playfair Display* & *Plus Jakarta Sans*), subtle glassmorphism headers, tactile button press physics.
-2. **Interactive Dark Mode Toggle**: Dedicated switch in the top navigation bar with smooth transition between warm luxury ivory paper and deep midnight obsidian themes.
-3. **Dedicated WhatsApp Integration**:
-   - Number: **`70068 12676`** (`+91 70068 12676`).
-   - Clicking the WhatsApp buttons automatically opens WhatsApp prefilled with:  
-     `"Hi can I get more Info on your products."`
-   - Floating WhatsApp button pinned at bottom-right for instant 1-click customer access.
-   - Individual product cards feature direct WhatsApp order buttons with specific size & price details.
-   - The shopping bag includes an **"Instant Checkout on WhatsApp"** button that sends a neat, itemized bill.
-4. **Rich Harvest Catalog**:
-   - Grade A1 Pampore Mongra Saffron (Crocin > 240 units).
-   - Kashmir Snow-White Walnut Halves (Giri) & Kagzi In-Shell Walnuts.
-   - Kashmiri Mamra Almonds (High Natural Oil content ~42%).
-   - Royal Medjool & Medina Ajwa Dates.
-   - Royal Kashmiri Saffron Kahwa Tea & Himalayan Organic Shilajit.
-5. **Interactive Purity Matrix**: Side-by-side comparison illustrating why Kashmir Arova's natural unbleached produce surpasses commercial grocery store alternatives.
+1. **Apple-Inspired Minimal Design**:
+   - Luxurious typography pairing (*Playfair Display* italic serif headlines with *Plus Jakarta Sans* body text).
+   - Tactile button press physics (`apple-btn`), subtle glassmorphism navigation, and generous negative space.
+2. **Interactive Dark Mode Toggle**:
+   - Switches smoothly between warm luxury ivory paper (`#FAF9F6`) and deep midnight obsidian (`#0A0A0B`).
+   - Remembers user preference via `localStorage`.
+3. **Dedicated WhatsApp Concierge (`70068 12676`)**:
+   - Primary & Floating WhatsApp buttons connect directly to **`+91 70068 12676`** with the requested message:
+     > *"Hi can I get more Info on your products."*
+   - Each product card has a direct WhatsApp inquiry button prefilled with the exact item, packaging size, and price.
+   - The shopping bag includes an **"Instant Checkout on WhatsApp"** button that formats a neat itemized order bill.
+4. **Interactive Harvest Catalog**:
+   - **Pampore Mongra Saffron**: Grade A1 GI-Tagged crimson stigmata (Crocin > 240 units).
+   - **Kashmir Snow-White Walnut Halves (Giri)**: 100% unbleached, sweet kernel halves.
+   - **Kashmiri Mamra Almonds**: Heritage unpasteurized crop with ~42% natural oil.
+   - **Kagzi In-Shell Walnuts**: Paper-thin shell easily cracked by hand.
+   - **Royal Medjool & Medina Ajwa Dates**: Plump, tender, succulent dates.
+   - **Royal Kashmiri Saffron Kahwa Tea & Himalayan Organic Shilajit**.
+5. **Interactive Packaging & Price Selectors**:
+   - Click between 1g, 5g, 250g, 500g, 1kg to see live price updates.
+6. **Interactive Slide-Out Shopping Bag Drawer**:
+   - Add items to bag, increment/decrement quantities, remove items.
+   - Free shipping progress indicator (over ₹1,499).
+   - WhatsApp Instant Checkout & Direct Order placement.
+7. **Apple-Style Purity Comparison Matrix**:
+   - Side-by-side comparison illustrating why Kashmir Arova's natural unbleached produce surpasses mass-market commercial dry fruits.
+8. **Product Detail Quick View Modal**:
+   - Origin coordinates (altitude, harvest year, GI certification), tasting notes, and Ayurvedic health benefits.
