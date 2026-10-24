@@ -11,15 +11,17 @@
     <meta property="og:image" content="./images/hero_kashmir_arova.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#F3EBDD" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23F3EBDD'/%3E%3Cpath d='M12 30 L21 18 L25 23 L32 10 L39 20 L43 16 L52 30 Z' fill='%23A57C34'/%3E%3Ctext x='31' y='58' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='28' letter-spacing='-2' fill='%231F3A2A'%3EKA%3C/text%3E%3C/svg%3E" />
 
     <!-- Apply saved theme before first paint to avoid a flash -->
     <script>
+      document.documentElement.classList.add('js');
       try { if (localStorage.getItem('kashmir_arova_theme') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {}
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
     <style>
       /* ---------- Tokens ---------- */
@@ -39,6 +41,8 @@
         --night: #1A130F;
         --night-ink: #F1E7D6;
         --night-muted: #B9A994;
+        --brand-green: #1F3A2A;
+        --brand-gold: #A57C34;
         --overlay: rgba(26, 19, 15, 0.45);
         --glass: rgba(255, 250, 242, 0.52);
         --glass-strong: rgba(255, 250, 242, 0.78);
@@ -49,11 +53,12 @@
         --grad-text: linear-gradient(100deg, #8E1F2C 10%, #C8452C 55%, #D98B2B 100%);
         --grad-green: linear-gradient(120deg, #17493A 0%, #1F6B4C 55%, #2F8F63 100%);
         --bg-glow:
-          radial-gradient(42vw 42vw at 8% 6%, rgba(214, 92, 58, 0.30), transparent 70%),
-          radial-gradient(38vw 38vw at 92% 18%, rgba(230, 168, 70, 0.32), transparent 70%),
-          radial-gradient(46vw 46vw at 78% 78%, rgba(176, 52, 78, 0.20), transparent 70%),
-          radial-gradient(40vw 40vw at 12% 88%, rgba(120, 150, 96, 0.18), transparent 70%),
-          linear-gradient(180deg, #F6EEE2 0%, #F1E5D3 100%);
+          radial-gradient(44vw 44vw at 6% 4%, rgba(214, 86, 58, 0.42), transparent 70%),
+          radial-gradient(40vw 40vw at 94% 14%, rgba(236, 170, 66, 0.46), transparent 70%),
+          radial-gradient(48vw 48vw at 80% 80%, rgba(184, 52, 92, 0.30), transparent 70%),
+          radial-gradient(42vw 42vw at 10% 90%, rgba(140, 92, 190, 0.22), transparent 70%),
+          radial-gradient(30vw 30vw at 50% 50%, rgba(255, 214, 150, 0.30), transparent 70%),
+          linear-gradient(180deg, #F7EEE1 0%, #F2E4D0 100%);
         --serif: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
         --sans: 'Jost', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
         --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -73,6 +78,8 @@
         --green: #2E8560;
         --green-hover: #36986E;
         --night: #0D0A08;
+        --brand-green: #CFE2D1;
+        --brand-gold: #D9B56B;
         --overlay: rgba(0, 0, 0, 0.55);
         --glass: rgba(40, 30, 26, 0.42);
         --glass-strong: rgba(34, 26, 22, 0.8);
@@ -108,11 +115,36 @@
       body::before {
         content: "";
         position: fixed;
-        inset: 0;
+        inset: -12%;
         z-index: -1;
         background: var(--bg-glow);
         pointer-events: none;
+        animation: drift 28s ease-in-out infinite alternate;
       }
+      /* Fine film grain so the gradients read as a tactile surface */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        pointer-events: none;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+      @keyframes drift {
+        0% { transform: translate3d(0, 0, 0) scale(1); }
+        50% { transform: translate3d(3%, -2%, 0) scale(1.05); }
+        100% { transform: translate3d(-3%, 3%, 0) scale(1.02); }
+      }
+
+      /* Scroll reveal (only when JS is running; content stays visible otherwise) */
+      html.js .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+        transition-delay: var(--d, 0ms);
+      }
+      html.js .reveal.in { opacity: 1; transform: none; }
       body.locked { overflow: hidden; }
       ::selection { background: rgba(169, 122, 44, 0.28); }
       img { max-width: 100%; display: block; }
@@ -225,14 +257,46 @@
         height: 72px;
       }
       .main-nav { display: none; }
+      /* Logo lockup: KA emblem + KASHMIR / — AROVA — wordmark */
       .brand {
         display: inline-flex;
         align-items: center;
-        gap: 0.55rem;
+        gap: 0.65rem;
         white-space: nowrap;
+        color: var(--brand-green);
       }
-      .brand-k { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 1.65rem; color: var(--saffron); line-height: 1; }
-      .brand-a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.34em; text-transform: uppercase; }
+      .brand-mark { width: 44px; height: 48px; flex: none; overflow: visible; }
+      .brand-mark .gold { color: var(--brand-gold); }
+      .brand-text { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+      .brand-k {
+        font-family: 'Cinzel Decorative', 'Cinzel', var(--serif);
+        font-weight: 700;
+        font-size: 1.32rem;
+        letter-spacing: 0.04em;
+        color: var(--brand-green);
+      }
+      .brand-a {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        margin-top: 0.28rem;
+        font-family: 'Cinzel', var(--serif);
+        font-weight: 600;
+        font-size: 0.62rem;
+        letter-spacing: 0.42em;
+        color: var(--brand-gold);
+      }
+      .brand-a span { margin-right: -0.42em; }
+      .brand-a::before, .brand-a::after { content: ""; width: 14px; height: 1px; background: currentColor; opacity: 0.8; }
+      .brand-tagline {
+        margin-top: 0.7rem;
+        font-family: 'Cinzel', var(--serif);
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        color: var(--brand-green);
+        opacity: 0.85;
+      }
       .actions { display: flex; align-items: center; justify-content: flex-end; gap: 0.35rem; }
       .icon-btn {
         position: relative;
@@ -282,9 +346,10 @@
           transition: color 0.2s, border-color 0.2s;
         }
         .main-nav a:hover { color: var(--ink); border-color: var(--gold); }
-        .brand { flex-direction: column; gap: 0.2rem; }
-        .brand-k { font-size: 1.9rem; }
-        .brand-a { font-size: 0.68rem; letter-spacing: 0.5em; margin-right: -0.5em; }
+        .brand-mark { width: 50px; height: 54px; }
+        .brand-k { font-size: 1.55rem; }
+        .brand-a { font-size: 0.66rem; }
+        .brand-a::before, .brand-a::after { width: 18px; }
       }
       @media (min-width: 640px) {
         .header-wa { display: inline-flex; margin-left: 0.4rem; }
@@ -304,31 +369,66 @@
         letter-spacing: -0.02em;
         margin-top: 1.6rem;
       }
-      .hero h1 em { display: block; font-weight: 400; }
+      .hero h1 em { display: block; font-weight: 400; background-size: 220% auto; animation: sheen 9s ease-in-out infinite alternate; }
+      @keyframes sheen { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
       .hero-copy p.intro { margin-top: 1.8rem; max-width: 33rem; font-size: 1.08rem; font-weight: 300; color: var(--ink-2); }
       .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.2rem; }
-      .proof {
-        list-style: none;
-        margin: 2.6rem 0 0;
-        padding: 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.7rem 1.6rem;
-        font-size: 0.78rem;
-        letter-spacing: 0.06em;
-        color: var(--muted);
-      }
-      .proof li {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 0.9rem;
-        border-radius: 999px;
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: 34rem;
+        margin-top: 2.6rem;
+        border-radius: 22px;
         background: var(--glass);
         -webkit-backdrop-filter: var(--blur);
         backdrop-filter: var(--blur);
         border: 1px solid var(--glass-border);
+        box-shadow: var(--glass-shadow);
       }
+      .stat { padding: 1.1rem 1.2rem 1.2rem; }
+      .stat + .stat { border-left: 1px solid var(--line); }
+      .stat b {
+        display: block;
+        width: fit-content;
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: clamp(1.7rem, 3vw, 2.3rem);
+        line-height: 1;
+        background: var(--grad-text);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        padding-right: 0.06em;
+      }
+      .stat span { display: block; margin-top: 0.45rem; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); line-height: 1.4; }
+      .proof-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.7rem; margin-top: 1.1rem; font-size: 0.78rem; letter-spacing: 0.04em; color: var(--muted); }
+
+      /* Valley marquee */
+      .marquee {
+        overflow: hidden;
+        padding-block: 1.3rem;
+        border-block: 1px solid var(--glass-border);
+        background: var(--glass);
+        -webkit-backdrop-filter: var(--blur);
+        backdrop-filter: var(--blur);
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      }
+      .marquee-track { display: flex; width: max-content; animation: marquee 48s linear infinite; }
+      .marquee-group { display: flex; align-items: center; }
+      .marquee-group span {
+        display: inline-flex;
+        align-items: center;
+        gap: 2.4rem;
+        padding-right: 2.4rem;
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: clamp(1.4rem, 2.4vw, 2rem);
+        color: var(--ink-2);
+        white-space: nowrap;
+      }
+      .marquee-group .orn { width: 16px; height: 16px; }
+      @keyframes marquee { to { transform: translateX(-50%); } }
       .hero-art { position: relative; width: 100%; max-width: 540px; margin: 14px auto 28px; }
       .hero-art::before {
         content: "";
@@ -434,7 +534,7 @@
         box-shadow: var(--glass-shadow);
         transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
       }
-      .product:hover { transform: translateY(-4px); box-shadow: var(--glass-shadow), 0 30px 60px -30px rgba(150, 50, 30, 0.45); }
+      .product:hover { transform: translateY(-6px); box-shadow: var(--glass-shadow), 0 0 0 1px rgba(214, 92, 58, 0.25), 0 34px 70px -30px rgba(170, 60, 36, 0.55); }
       .product-media {
         position: relative;
         aspect-ratio: 4 / 5;
@@ -633,7 +733,19 @@
       @media (min-width: 1000px) {
         .steps { grid-template-columns: repeat(4, 1fr); }
       }
-      .manifesto { display: grid; gap: 48px; align-items: center; margin-top: clamp(72px, 9vw, 120px); }
+      .manifesto { display: grid; gap: 48px; align-items: center; }
+      .manifesto-band blockquote p { color: var(--night-ink); }
+      .manifesto-band .eyebrow { color: #D9AE62; }
+      .manifesto-band .orn { color: #D9AE62; }
+      .manifesto-band .arch-frame { position: relative; max-width: 420px; width: 100%; margin: 12px auto; }
+      .manifesto-band .arch-frame::before {
+        content: "";
+        position: absolute;
+        inset: -12px;
+        border: 1px solid rgba(217, 174, 98, 0.5);
+        border-radius: 999px 999px 4px 4px;
+        pointer-events: none;
+      }
       .manifesto .arch { aspect-ratio: 4 / 5; max-width: 420px; width: 100%; margin-inline: auto; }
       .manifesto .arch img { object-position: 50% 55%; }
       .manifesto blockquote { margin: 0; }
@@ -769,7 +881,7 @@
       .verified { color: var(--green) !important; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
 
       /* Concierge */
-      .concierge {
+      .concierge, .manifesto-band {
         color: var(--night-ink);
         background:
           radial-gradient(50vw 40vw at 85% 20%, rgba(224, 96, 63, 0.35), transparent 70%),
@@ -785,7 +897,8 @@
       .concierge .lede strong { color: var(--night-ink); font-weight: 500; }
       .concierge-grid { display: grid; gap: 56px; align-items: center; }
       .perks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 28px; margin-top: 2.6rem; padding-top: 2rem; border-top: 1px solid rgba(241, 231, 214, 0.14); }
-      .perk h4 { display: flex; align-items: center; gap: 0.55rem; font-family: var(--serif); font-size: 1.25rem; font-weight: 500; }
+      .perk h4 .orn { margin-top: 0.4em; }
+      .perk h4 { display: flex; align-items: flex-start; gap: 0.55rem; font-family: var(--serif); font-size: 1.25rem; font-weight: 500; }
       .perk p { margin-top: 0.4rem; font-size: 0.84rem; font-weight: 300; color: var(--night-muted); }
       .wa-card {
         padding: clamp(24px, 3vw, 36px);
@@ -987,6 +1100,18 @@
     </style>
   </head>
   <body>
+    <!-- Brand emblem (vector version of the Kashmir Arova logo) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <symbol id="ka-mark" viewBox="0 0 64 70">
+        <path d="M13.6 48.4 A26 26 0 1 1 50.4 48.4" style="fill:none;stroke:var(--brand-gold);stroke-width:1.1" />
+        <path d="M15 31 L23 21 L27 25 L33 12.5 L39 22 L43 18.5 L50 31 Z" style="fill:var(--brand-gold)" />
+        <path d="M28.6 21.6 L33 12.5 L36.4 18 L33.6 17 Z" style="fill:var(--paper);opacity:.55" />
+        <path d="M39 31 l1.6-4.6 1.6 4.6z M42.6 31 l1.8-6 1.8 6z M46.3 31 l1.3-3.6 1.3 3.6z" style="fill:var(--brand-gold)" />
+        <path d="M18 34.2h28 M23 37.2h18" style="stroke:var(--brand-gold);stroke-width:.9;opacity:.7" />
+        <text x="31" y="65" text-anchor="middle" style="font-family:'Cinzel Decorative','Cinzel',Georgia,serif;font-weight:700;font-size:30px;letter-spacing:-3px;fill:currentColor">KA</text>
+        <path d="M46.5 43.5 c4-5.2 9-6.4 12.4-5.4 c-2.2 5.2-7.4 7.4-12.4 5.4z" style="fill:currentColor" />
+      </symbol>
+    </svg>
 
     <div class="announce">
       Autumn 2026 harvest now dispatching · <a href="#concierge">Order on WhatsApp</a>
@@ -1003,8 +1128,11 @@
         </nav>
 
         <a href="#" class="brand" aria-label="Kashmir Arova home">
-          <span class="brand-k">Kashmir</span>
-          <span class="brand-a">Arova</span>
+          <svg class="brand-mark" aria-hidden="true"><use href="#ka-mark" /></svg>
+          <span class="brand-text">
+            <span class="brand-k">Kashmir</span>
+            <span class="brand-a"><span>AROVA</span></span>
+          </span>
         </a>
 
         <div class="actions">
@@ -1057,11 +1185,15 @@
               </a>
             </div>
 
-            <ul class="proof">
-              <li><svg class="orn" viewBox="0 0 20 20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg>100% GI-Tagged Kashmiri Origin</li>
-              <li><svg class="orn" viewBox="0 0 20 20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg>Non-Bleached & Non-Irradiated</li>
-              <li><svg class="orn" viewBox="0 0 20 20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg>Dispatch Across India & Worldwide</li>
-            </ul>
+            <div class="stats">
+              <div class="stat"><b>240+</b><span>Crocin colour strength</span></div>
+              <div class="stat"><b>1,600m</b><span>Orchard altitude</span></div>
+              <div class="stat"><b>100%</b><span>GI-tagged Kashmiri origin</span></div>
+            </div>
+            <div class="proof-line">
+              <svg class="orn" viewBox="0 0 20 20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg>
+              <span>Non-Bleached & Non-Irradiated · Dispatch Across India & Worldwide</span>
+            </div>
           </div>
 
           <figure class="hero-art">
@@ -1084,7 +1216,19 @@
         </div>
       </section>
 
-      <div class="lattice" aria-hidden="true"></div>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <div class="marquee-group">
+            <span>Pampore Karewas <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
+            <span>Kupwara <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
+            <span>Shopian <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
+            <span>Pulwama <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
+            <span>Badgam <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
+            <span>Ganderbal <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
+            <span>Srinagar <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
+          </div>
+        </div>
+      </div>
 
       <!-- Harvest Catalog -->
       <section id="catalog" class="section">
@@ -1160,10 +1304,18 @@
               <p>Every batch of Pampore Mongra Saffron is tested for Crocin coloring strength (&gt;240 units) and packaged in sealed glass jars right in Srinagar.</p>
             </div>
           </div>
+        </div>
+      </section>
 
+      <!-- Manifesto -->
+      <section class="manifesto-band">
+        <div class="lattice" aria-hidden="true"></div>
+        <div class="wrap section">
           <div class="manifesto">
-            <div class="arch">
-              <img src="./images/product_saffron_mongra.jpg" alt="Grade A1 Kashmiri Mongra saffron in a sealed jar with crimson threads on a wooden spoon" loading="lazy" />
+            <div class="arch-frame">
+              <div class="arch">
+                <img src="./images/product_saffron_mongra.jpg" alt="Grade A1 Kashmiri Mongra saffron in a sealed jar with crimson threads on a wooden spoon" loading="lazy" />
+              </div>
             </div>
             <blockquote>
               <p>Real Kashmiri saffron does not scream with artificial scarlet dye. It whispers with a deep persistent crimson thread that yields an ethereal honeyed gold.</p>
@@ -1353,10 +1505,14 @@
       <div class="wrap">
         <div class="footer-grid">
           <div class="footer-brand">
-            <a href="#" class="brand" style="flex-direction:row">
-              <span class="brand-k">Kashmir</span>
-              <span class="brand-a">Arova</span>
+            <a href="#" class="brand" aria-label="Kashmir Arova home">
+              <svg class="brand-mark" style="width:64px;height:70px" aria-hidden="true"><use href="#ka-mark" /></svg>
+              <span class="brand-text">
+                <span class="brand-k" style="font-size:1.9rem">Kashmir</span>
+                <span class="brand-a" style="font-size:0.78rem"><span>AROVA</span></span>
+              </span>
             </a>
+            <div class="brand-tagline">DRY FRUITS • SPICES • SAFFRON • GIFT PACKS</div>
             <p>Artisanal purveyors of authentic Kashmiri Walnuts, Mamra Almonds, Grade A1 Pampore Mongra Saffron, Medina Dates, and Himalayan wellness botanical harvests.</p>
             <address>
               Pampore Karewas & Srinagar, Jammu & Kashmir 190001<br />
@@ -2002,6 +2158,47 @@
         if (slide.productId) openProductModal(slide.productId);
       }
 
+      // Scroll reveal: single blocks fade up; groups stagger their children
+      const REVEAL_BLOCKS = '.hero-copy, .hero-art, .sec-head, .cmp, .mission, .manifesto > *, .concierge-grid > *, .attributes-head';
+      const REVEAL_GROUPS = '.steps, .values, .attributes, .reviews, .perks';
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const revealObserver = !reducedMotion && 'IntersectionObserver' in window
+        ? new IntersectionObserver(entries => {
+            entries.forEach(e => {
+              if (!e.isIntersecting) return;
+              const el = e.target;
+              el.classList.add('in');
+              revealObserver.unobserve(el);
+              // Hand the element back to its own hover transitions once revealed
+              const done = ev => {
+                if (ev.target !== el) return;
+                el.classList.remove('reveal', 'in');
+                el.removeEventListener('transitionend', done);
+              };
+              el.addEventListener('transitionend', done);
+            });
+          }, { rootMargin: '0px 0px -8% 0px' })
+        : null;
+
+      function reveal(el, delay) {
+        if (!revealObserver) return;
+        el.classList.add('reveal');
+        if (delay) el.style.setProperty('--d', `${delay}ms`);
+        revealObserver.observe(el);
+      }
+
+      function initReveal() {
+        document.querySelectorAll(REVEAL_BLOCKS).forEach(el => reveal(el));
+        document.querySelectorAll(REVEAL_GROUPS).forEach(group => {
+          [...group.children].forEach((child, i) => reveal(child, i * 90));
+        });
+      }
+
+      function initMarquee() {
+        const track = document.querySelector('.marquee-track');
+        if (track && track.children.length === 1) track.appendChild(track.firstElementChild.cloneNode(true));
+      }
+
       document.addEventListener('keydown', e => {
         if (e.key !== 'Escape') return;
         closeProductModal();
@@ -2010,9 +2207,12 @@
 
       initTheme();
       initHeroSlideshow();
+      initMarquee();
       renderProducts();
       renderComparison(0);
       updateCartBadge();
+      initReveal();
+      document.querySelectorAll('#productGrid .product').forEach((el, i) => reveal(el, (i % 3) * 90));
     </script>
   </body>
 </html>
