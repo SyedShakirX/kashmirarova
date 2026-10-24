@@ -799,6 +799,44 @@
         box-shadow: var(--glass-shadow);
       }
       .mission .lattice { position: absolute; left: 0; right: 0; top: 0; opacity: 0.35; }
+      .vision { background: linear-gradient(135deg, rgba(30, 106, 76, 0.16), rgba(230, 168, 70, 0.14) 60%, rgba(120, 150, 96, 0.10)), var(--glass); }
+
+      /* Mission / Vision crossfade slider */
+      .mv-slider { display: grid; }
+      .mv-slide {
+        grid-area: 1 / 1;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(12px);
+        transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), visibility 0.9s;
+      }
+      .mv-slide.is-active { opacity: 1; visibility: visible; transform: none; }
+      .mv-labels { display: flex; justify-content: center; gap: 1.6rem; margin-top: 1rem; }
+      .mv-labels span {
+        position: relative;
+        padding-bottom: 0.45rem;
+        font-size: 0.66rem;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        transition: color 0.4s;
+      }
+      .mv-labels span::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--grad);
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+      .mv-labels span.is-active { color: var(--ink); }
+      .mv-labels span.is-active::after { animation: mvfill var(--mv-ms, 6000ms) linear forwards; }
+      @keyframes mvfill { to { transform: scaleX(1); } }
       .mission-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; }
       .mission-statement {
         margin-top: 1rem;
@@ -1341,19 +1379,6 @@
         </div>
       </section>
 
-      <div class="marquee" aria-hidden="true">
-        <div class="marquee-track">
-          <div class="marquee-group">
-            <span>Pampore Karewas <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
-            <span>Kupwara <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
-            <span>Shopian <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
-            <span>Pulwama <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
-            <span>Badgam <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
-            <span>Ganderbal <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
-            <span>Srinagar <svg class="orn" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg></span>
-          </div>
-        </div>
-      </div>
 
       <!-- Harvest Catalog -->
       <section id="catalog" class="section">
@@ -1486,13 +1511,14 @@
       <!-- Mission, Values & Brand Attributes -->
       <section id="mission" class="section">
         <div class="wrap">
-          <div class="mission">
+          <div class="mv-slider" id="mvSlider" aria-roledescription="carousel" aria-label="Our mission and vision">
+          <div class="mission mv-slide is-active" aria-roledescription="slide" aria-label="Our mission">
             <div class="lattice" aria-hidden="true"></div>
             <div class="mission-grid">
               <div>
                 <div class="eyebrow">IV · Our Mission</div>
                 <p class="mission-statement">
-                  To carry the Kashmir Valley's purest harvests from orchard to table, <em>honestly graded, untouched by chemicals, and traceable to the soil they grew in.</em>
+                  Delivering authentic quality kashmiri products <em>with freshness, trust and care</em>
                 </p>
               </div>
               <div class="mission-aside">
@@ -1500,6 +1526,27 @@
                 <p>No bleach, no dye, no shortcuts. Just the harvest, as it leaves the orchard.</p>
               </div>
             </div>
+          </div>
+
+          <div class="mission vision mv-slide" aria-roledescription="slide" aria-label="Our vision" aria-hidden="true">
+            <div class="lattice" aria-hidden="true"></div>
+            <div class="mission-grid">
+              <div>
+                <div class="eyebrow">IV · Our Vision</div>
+                <p class="mission-statement">
+                  To make Kashmir's harvest the world's benchmark for purity, <em>so anyone, anywhere, can taste the valley exactly as it grows.</em>
+                </p>
+              </div>
+              <div class="mission-aside">
+                <p>We see a future where every jar carries its valley's name with pride, every family knows exactly where its food comes from, and every grower shares fairly in the value of the harvest.</p>
+                <p>From Pampore's saffron fields to tables across India and the world, honestly and sustainably.</p>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="mv-labels" aria-hidden="true">
+            <span class="is-active">Mission</span>
+            <span>Vision</span>
           </div>
 
           <div class="values">
@@ -1697,7 +1744,7 @@
               <li><a href="#purity">Zero Chemical Bleaching</a></li>
               <li><a href="#purity">Laboratory Test Reports</a></li>
               <li><a href="#heritage">Cold Mountain Soil</a></li>
-              <li><a href="#mission">Our Mission & Values</a></li>
+              <li><a href="#mission">Mission, Vision & Values</a></li>
             </ul>
           </div>
 
@@ -2391,12 +2438,10 @@
         });
 
         startHeroTimer();
-        document.addEventListener('visibilitychange', () => document.hidden ? clearInterval(heroTimer) : startHeroTimer());
       }
 
       function startHeroTimer() {
         clearInterval(heroTimer);
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         heroTimer = setInterval(() => showHeroSlide((heroIndex + 1) % HERO_SLIDES.length), HERO_INTERVAL);
       }
 
@@ -2415,7 +2460,6 @@
       const SHOW_INTERVAL = 3000;
       let showIndex = 0;
       let showTimer = null;
-      let showPaused = false;
 
       function initShowcase() {
         const stage = document.getElementById('showcase');
@@ -2449,13 +2493,6 @@
         `).join(''));
 
         document.documentElement.style.setProperty('--show-ms', `${SHOW_INTERVAL}ms`);
-        // Hold the slide while someone is reading or using its buttons
-        stage.addEventListener('mouseenter', () => pauseShowcase(true));
-        stage.addEventListener('mouseleave', () => pauseShowcase(false));
-        stage.addEventListener('focusin', () => pauseShowcase(true));
-        stage.addEventListener('focusout', () => pauseShowcase(false));
-        document.addEventListener('visibilitychange', () => pauseShowcase(document.hidden));
-
         showSlide(0);
       }
 
@@ -2475,7 +2512,6 @@
         clearTimeout(showTimer);
         const bar = document.getElementById('showBar');
         bar.classList.remove('run');
-        if (reducedMotion || showPaused) return;
         void bar.offsetWidth; // restart the progress animation
         bar.classList.add('run');
         showTimer = setTimeout(() => {
@@ -2484,14 +2520,31 @@
         }, SHOW_INTERVAL);
       }
 
-      function pauseShowcase(paused) {
-        if (showPaused === paused) return;
-        showPaused = paused;
-        scheduleShowcase();
+      // Mission / Vision slider, every 6s
+      const MV_INTERVAL = 6000;
+      let mvIndex = 0;
+
+      function initMissionVision() {
+        const slides = document.querySelectorAll('#mvSlider .mv-slide');
+        const labels = document.querySelectorAll('.mv-labels span');
+        if (slides.length < 2) return;
+        document.documentElement.style.setProperty('--mv-ms', `${MV_INTERVAL}ms`);
+        setInterval(() => {
+          mvIndex = (mvIndex + 1) % slides.length;
+          slides.forEach((s, i) => {
+            s.classList.toggle('is-active', i === mvIndex);
+            s.setAttribute('aria-hidden', i !== mvIndex);
+          });
+          labels.forEach((l, i) => {
+            // Re-trigger the underline fill on the newly active label
+            l.classList.remove('is-active');
+            if (i === mvIndex) { void l.offsetWidth; l.classList.add('is-active'); }
+          });
+        }, MV_INTERVAL);
       }
 
       // Scroll reveal: single blocks fade up; groups stagger their children
-      const REVEAL_BLOCKS = '.hero-copy, .hero-art, .sec-head, .cmp, .mission, .order-band, .showcase, .concierge-grid > *, .attributes-head';
+      const REVEAL_BLOCKS = '.hero-copy, .hero-art, .sec-head, .cmp, .mv-slider, .order-band, .showcase, .concierge-grid > *, .attributes-head';
       const REVEAL_GROUPS = '.steps, .values, .attributes, .reviews, .perks';
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const revealObserver = !reducedMotion && 'IntersectionObserver' in window
@@ -2542,6 +2595,7 @@
       initMarquee();
       renderProducts();
       initShowcase();
+      initMissionVision();
       renderComparison(0);
       updateCartBadge();
       initReveal();
