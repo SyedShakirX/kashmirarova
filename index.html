@@ -21,7 +21,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&family=Mukta:wght@300;400;500;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
 
     <style>
       /* ---------- Tokens ---------- */
@@ -311,6 +311,69 @@
       }
       .icon-btn:hover { background: var(--glass-strong); color: var(--ink); }
       .icon-btn svg { width: 18px; height: 18px; }
+      /* Language switch (EN / हि) */
+      .lang-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px;
+        border-radius: 999px;
+        border: 1px solid var(--glass-border);
+        background: var(--glass);
+        -webkit-backdrop-filter: var(--blur);
+        backdrop-filter: var(--blur);
+      }
+      .lang-btn span {
+        min-width: 30px;
+        padding: 0.3rem 0.5rem;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        line-height: 1.2;
+        text-align: center;
+        color: var(--muted);
+        transition: background 0.25s, color 0.25s;
+      }
+      .lang-btn span:last-child { font-family: 'Mukta', var(--sans); font-size: 0.82rem; }
+      .lang-btn span.is-active { background: var(--grad); color: #fff; }
+      @media (max-width: 479px) {
+        .header-row { gap: 0.4rem; }
+        .actions { gap: 0.1rem; }
+        .icon-btn { width: 32px; height: 32px; }
+        .chan { width: 32px; height: 32px; }
+        .chan svg { width: 15px; height: 15px; }
+        .header-chan { margin-left: 0.15rem; }
+        .lang-btn span { min-width: 24px; padding: 0.22rem 0.35rem; }
+        .brand { gap: 0.4rem; }
+        .brand-mark { width: 34px; height: 38px; }
+        .brand-k { font-size: 1.05rem; }
+        .brand-a { font-size: 0.55rem; }
+        .brand-a::before, .brand-a::after { width: 10px; }
+      }
+
+      @media (max-width: 379px) {
+        .brand-mark { width: 30px; height: 34px; }
+        .brand-k { font-size: 0.95rem; }
+        .brand-a { font-size: 0.5rem; }
+        .brand-a::before, .brand-a::after { width: 8px; }
+        .lang-btn span { min-width: 20px; padding: 0.2rem 0.3rem; }
+        /* Hindi enlarges rem sizes by 6%; undo that in the cramped header */
+        html[lang="hi"] .brand-k { font-size: 0.9rem; }
+        html[lang="hi"] .brand-a { font-size: 0.47rem; }
+        html[lang="hi"] .lang-btn span { padding-inline: 0.25rem; }
+      }
+
+      /* Hindi: Devanagari faces, slightly larger text, no letter-spacing on labels */
+      html[lang="hi"] {
+        --serif: 'Tiro Devanagari Hindi', 'Cormorant Garamond', Georgia, serif;
+        --sans: 'Mukta', 'Jost', 'Segoe UI', system-ui, sans-serif;
+        font-size: 106%;
+      }
+      html[lang="hi"] body *:not(.brand-k):not(.brand-a):not(.brand-a > span) { letter-spacing: 0 !important; }
+      html[lang="hi"] .hero h1, html[lang="hi"] .h2, html[lang="hi"] .mission-statement { line-height: 1.25; }
+      html[lang="hi"] .hero h1 { font-size: clamp(2.4rem, 5vw, 4.4rem); }
+      html[lang="hi"] .h2 { font-size: clamp(2rem, 3.8vw, 3.1rem); }
+      html[lang="hi"] .mission-statement { font-size: clamp(1.6rem, 3.2vw, 2.6rem); }
+
       .theme-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
       .header-chan { margin-left: 0.35rem; }
       .badge {
@@ -923,8 +986,8 @@
       }
 
       /* Reviews slider: steps one card at a time, looping */
-      /* Clip sideways at the content edge, but leave room above/below for card shadows */
-      .reviews-viewport { --per: 1; --gap: 20px; clip-path: inset(-48px 0); }
+      /* Clip sideways at the content edge; vertical padding leaves room for card shadows */
+      .reviews-viewport { --per: 1; --gap: 20px; overflow: hidden; padding-block: 32px; margin-block: -32px; }
       .reviews-track { display: flex; gap: var(--gap); transition: transform 0.9s var(--ease); will-change: transform; }
       .reviews-track.no-anim { transition: none; }
       @media (min-width: 720px) { .reviews-viewport { --per: 2; } }
@@ -1305,6 +1368,11 @@
             <span id="themeText" class="theme-text">Dark</span>
           </button>
 
+          <button id="langToggleBtn" onclick="toggleLanguage()" class="lang-btn" aria-label="Change language / भाषा बदलें" title="English / हिंदी">
+            <span data-lang="en" class="is-active">EN</span>
+            <span data-lang="hi" lang="hi">हि</span>
+          </button>
+
           <button onclick="toggleCartDrawer(true)" aria-label="View shopping bag" class="icon-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
             <span id="navCartCount" class="badge">0</span>
@@ -1408,24 +1476,6 @@
           </div>
 
           <div id="productGrid" class="products"></div>
-
-          <div class="order-band">
-            <div>
-              <div class="eyebrow">Order Direct</div>
-              <h3>Found your harvest? <em>Message us to order.</em></h3>
-              <p>Share the product and pack size. Our Srinagar desk replies with today's harvest rate and delivery time.</p>
-            </div>
-            <div class="order-band-actions">
-              <a href="https://wa.me/917006812676?text=Hi%20can%20I%20get%20more%20Info%20on%20your%20products." target="_blank" rel="noopener noreferrer" class="btn btn-wa">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                <span>Order on WhatsApp</span>
-              </a>
-              <button onclick="sendInstagram(DEFAULT_WA_MSG)" class="btn btn-ig ig-grad">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" stroke="none"></circle></svg>
-                <span>Order on Instagram</span>
-              </button>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -1790,6 +1840,7 @@
       </div>
     </div>
 
+    <script src="./i18n-hi.js"></script>
     <script>
       const WHATSAPP_PHONE = '917006812676';
       const DEFAULT_WA_MSG = 'Hi can I get more Info on your products.';
@@ -2632,6 +2683,73 @@
         if (track && track.children.length === 1) track.appendChild(track.firstElementChild.cloneNode(true));
       }
 
+      // Language: swaps page text for Hindi from i18n-hi.js, keeping the English to restore.
+      // Inquiry messages sent to WhatsApp/Instagram stay in English for the order desk.
+      const HI = window.HI_STRINGS || {};
+      const HI_RULES = window.HI_PATTERNS || [];
+      const EN_TITLE = document.title;
+      const TRANSLATED_ATTRS = ['placeholder', 'title'];
+      let currentLang = 'en';
+
+      function toHindi(text) {
+        const t = text.trim();
+        if (!t) return null;
+        let hi = HI[t];
+        if (!hi) {
+          const rule = HI_RULES.find(([re]) => re.test(t));
+          if (rule) hi = t.replace(rule[0], rule[1]);
+        }
+        return hi ? text.replace(t, hi) : null;
+      }
+
+      function translateTextNode(node) {
+        if (node.__en === undefined) node.__en = node.nodeValue;
+        const hi = currentLang === 'hi' ? toHindi(node.__en) : null;
+        const next = hi || node.__en;
+        if (node.nodeValue !== next) node.nodeValue = next;
+      }
+
+      function translateElement(el) {
+        TRANSLATED_ATTRS.forEach(attr => {
+          if (!el.hasAttribute(attr)) return;
+          el.__enAttrs = el.__enAttrs || {};
+          if (el.__enAttrs[attr] === undefined) el.__enAttrs[attr] = el.getAttribute(attr);
+          const hi = currentLang === 'hi' ? toHindi(el.__enAttrs[attr]) : null;
+          el.setAttribute(attr, hi || el.__enAttrs[attr]);
+        });
+      }
+
+      function translateTree(root) {
+        if (root.nodeType === Node.TEXT_NODE) return translateTextNode(root);
+        if (root.nodeType !== Node.ELEMENT_NODE || root.closest('script, style')) return;
+        translateElement(root);
+        root.querySelectorAll('*').forEach(translateElement);
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        let n;
+        while ((n = walker.nextNode())) {
+          if (!n.parentElement.closest('script, style')) translateTextNode(n);
+        }
+      }
+
+      function applyLanguage(lang) {
+        currentLang = lang === 'hi' ? 'hi' : 'en';
+        document.documentElement.lang = currentLang;
+        try { localStorage.setItem('kashmir_arova_lang', currentLang); } catch (e) {}
+        document.title = currentLang === 'hi' ? (HI.__title || EN_TITLE) : EN_TITLE;
+        document.querySelectorAll('#langToggleBtn [data-lang]').forEach(s => s.classList.toggle('is-active', s.dataset.lang === currentLang));
+        translateTree(document.body);
+      }
+
+      function toggleLanguage() {
+        applyLanguage(currentLang === 'hi' ? 'en' : 'hi');
+      }
+
+      // Translate anything rendered later (product cards, cart, popup, notices)
+      new MutationObserver(muts => {
+        if (currentLang !== 'hi') return;
+        muts.forEach(m => m.addedNodes.forEach(translateTree));
+      }).observe(document.body, { childList: true, subtree: true });
+
       document.addEventListener('keydown', e => {
         if (e.key !== 'Escape') return;
         closeProductModal();
@@ -2649,6 +2767,7 @@
       updateCartBadge();
       initReveal();
       document.querySelectorAll('#productGrid .product').forEach((el, i) => reveal(el, (i % 3) * 90));
+      try { if (localStorage.getItem('kashmir_arova_lang') === 'hi') applyLanguage('hi'); } catch (e) {}
     </script>
   </body>
 </html>
