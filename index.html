@@ -354,7 +354,7 @@
 
       /* ---------- Hero ---------- */
       .hero { padding-block: clamp(40px, 6vw, 88px) clamp(64px, 8vw, 112px); }
-      .hero-grid, .concierge-grid, .manifesto { grid-template-columns: minmax(0, 1fr); }
+      .hero-grid, .concierge-grid { grid-template-columns: minmax(0, 1fr); }
       .hero-grid { display: grid; gap: 56px; }
       .sec-head.split > * { min-width: 0; }
       .hero-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }
@@ -715,33 +715,75 @@
       @media (min-width: 1000px) {
         .steps { grid-template-columns: repeat(4, 1fr); }
       }
-      .manifesto { display: grid; gap: 48px; align-items: center; }
-      .manifesto-band blockquote p { color: var(--night-ink); }
-      .manifesto-band .eyebrow { color: #D9AE62; }
-      .manifesto-band .orn { color: #D9AE62; }
-      .manifesto-band .arch-frame { position: relative; max-width: 420px; width: 100%; margin: 12px auto; }
-      .manifesto-band .arch-frame::before {
+      /* Collection showcase: packaging + every product, auto-rotating */
+      .manifesto-band .eyebrow, .manifesto-band .orn { color: #D9AE62; }
+      .showcase { display: grid; }
+      .show-slide {
+        grid-area: 1 / 1;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.8s var(--ease), visibility 0.8s;
+      }
+      .show-slide.is-active { opacity: 1; visibility: visible; }
+      .show-slide .show-media, .show-slide .show-body { transform: translateY(18px); transition: transform 0.9s var(--ease); }
+      .show-slide.is-active .show-media, .show-slide.is-active .show-body { transform: none; }
+      .show-slide.is-active .show-body { transition-delay: 0.08s; }
+      .show-media { position: relative; width: 100%; max-width: 470px; margin: 12px auto; }
+      .show-media::before {
         content: "";
         position: absolute;
         inset: -12px;
         border: 1px solid rgba(217, 174, 98, 0.5);
-        border-radius: 999px 999px 4px 4px;
+        border-radius: 34px;
         pointer-events: none;
       }
-      .manifesto .arch { aspect-ratio: 4 / 5; max-width: 420px; width: 100%; margin-inline: auto; }
-      .manifesto .arch img { object-position: 50% 55%; }
-      .manifesto blockquote { margin: 0; }
-      .manifesto blockquote p {
-        font-family: var(--serif);
-        font-style: italic;
-        font-weight: 400;
-        font-size: clamp(1.75rem, 3.4vw, 2.8rem);
-        line-height: 1.2;
+      .show-frame { aspect-ratio: 1; border-radius: 24px; overflow: hidden; background: #1E1612; }
+      .show-frame img { width: 100%; height: 100%; object-fit: cover; }
+      .show-tag {
+        position: absolute;
+        left: 14px;
+        top: 14px;
+        padding: 0.4rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(20, 14, 11, 0.45);
+        -webkit-backdrop-filter: blur(12px) saturate(150%);
+        backdrop-filter: blur(12px) saturate(150%);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #F1E7D6;
+        font-size: 0.62rem;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
       }
-      .manifesto blockquote p::before { content: "\201C"; display: block; width: fit-content; font-size: 4.5rem; line-height: 0.6; padding-top: 0.15em; margin-bottom: 1rem; font-style: normal; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
-      .manifesto footer { margin-top: 1.6rem; display: flex; align-items: center; gap: 0.6rem; }
+      .show-body h3 { margin-top: 0.8rem; font-family: var(--serif); font-weight: 500; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.05; color: var(--night-ink); }
+      .show-sub { margin-top: 0.5rem; color: #E8A66A; font-size: 0.95rem; }
+      .show-desc { margin-top: 1rem; max-width: 38rem; color: var(--night-muted); font-weight: 300; font-size: 0.98rem; }
+      .show-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 14px 24px; margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid rgba(241, 231, 214, 0.14); }
+      .show-facts dt { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #D9AE62; }
+      .show-facts dd { margin: 0.3rem 0 0; font-size: 0.86rem; color: var(--night-ink); }
+      .show-benefits { list-style: none; margin: 1.2rem 0 0; padding: 0; display: grid; gap: 0.4rem; }
+      .show-benefits li { display: flex; gap: 0.6rem; font-size: 0.88rem; color: var(--night-ink); }
+      .show-benefits li::before { content: "✦"; color: #D9AE62; font-size: 0.7rem; margin-top: 0.25rem; }
+      .show-packs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.2rem; }
+      .show-packs span { padding: 0.4rem 0.8rem; border-radius: 999px; border: 1px solid rgba(241, 231, 214, 0.2); background: rgba(241, 231, 214, 0.06); font-size: 0.76rem; color: var(--night-ink); }
+      .show-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.6rem; }
+      .show-actions .btn-line { background: rgba(241, 231, 214, 0.06); border-color: rgba(241, 231, 214, 0.25); color: var(--night-ink); }
+      .show-quote { margin: 1.2rem 0 0; }
+      .show-quote p { font-family: var(--serif); font-style: italic; font-size: clamp(1.5rem, 2.8vw, 2.3rem); line-height: 1.22; color: var(--night-ink); }
+      .show-quote p::before { content: "\201C"; display: block; width: fit-content; font-size: 4rem; line-height: 0.6; padding-top: 0.15em; margin-bottom: 0.8rem; font-style: normal; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .show-quote footer { margin-top: 1.3rem; display: flex; align-items: center; gap: 0.6rem; }
+      .show-progress { display: flex; align-items: center; gap: 1rem; max-width: 520px; margin: clamp(36px, 5vw, 56px) auto 0; }
+      .show-count { font-family: var(--serif); font-size: 1.05rem; color: #D9AE62; font-variant-numeric: tabular-nums; min-width: 4.2rem; }
+      .show-bar { flex: 1; height: 2px; border-radius: 2px; background: rgba(241, 231, 214, 0.14); overflow: hidden; }
+      .show-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #E0603F, #F0B04E); }
+      .show-bar i.run { animation: showfill var(--show-ms, 3000ms) linear forwards; }
+      @keyframes showfill { to { width: 100%; } }
       @media (min-width: 900px) {
-        .manifesto { grid-template-columns: 0.8fr 1.2fr; gap: 88px; }
+        .show-slide { grid-template-columns: 0.85fr 1.15fr; gap: 80px; }
       }
 
       /* Mission, values & brand attributes */
@@ -1408,23 +1450,35 @@
         </div>
       </section>
 
-      <!-- Manifesto -->
-      <section class="manifesto-band">
+      <!-- Collection showcase (manifesto + every product, rotating) -->
+      <section id="collection" class="manifesto-band" aria-roledescription="carousel" aria-label="The Kashmir Arova collection">
         <div class="lattice" aria-hidden="true"></div>
         <div class="wrap section">
-          <div class="manifesto">
-            <div class="arch-frame">
-              <div class="arch">
-                <img src="./images/product_saffron_mongra.jpg" alt="Grade A1 Kashmiri Mongra saffron in a sealed jar with crimson threads on a wooden spoon" loading="lazy" />
+          <div class="showcase" id="showcase">
+            <div class="show-slide is-active" aria-roledescription="slide" aria-label="Our packaging">
+              <div class="show-media">
+                <div class="show-frame">
+                  <img src="./images/kashmir_arova_packaging.jpg" alt="Kashmir Arova packaging range: forest-green and kraft gift boxes, carry bag, walnut, almond, saffron and spice pouches, glass jars, tins and a Diwali gift box" loading="lazy" />
+                </div>
+                <span class="show-tag">The Kashmir Arova Collection</span>
+              </div>
+              <div class="show-body">
+                <div class="eyebrow">Pouches · Jars · Tins · Gift Boxes</div>
+                <h3>Packed in the colours of the valley.</h3>
+                <blockquote class="show-quote">
+                  <p>Real Kashmiri saffron does not scream with artificial scarlet dye. It whispers with a deep persistent crimson thread that yields an ethereal honeyed gold.</p>
+                  <footer class="eyebrow">
+                    <svg class="orn" viewBox="0 0 20 20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg>
+                    Kashmir Arova Quality Manifesto · Srinagar
+                  </footer>
+                </blockquote>
               </div>
             </div>
-            <blockquote>
-              <p>Real Kashmiri saffron does not scream with artificial scarlet dye. It whispers with a deep persistent crimson thread that yields an ethereal honeyed gold.</p>
-              <footer class="eyebrow">
-                <svg class="orn" viewBox="0 0 20 20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5.5" y="5.5" width="9" height="9"/><rect x="5.5" y="5.5" width="9" height="9" transform="rotate(45 10 10)"/></g></svg>
-                Kashmir Arova Quality Manifesto · Srinagar
-              </footer>
-            </blockquote>
+            <!-- Product slides are rendered from PRODUCTS below -->
+          </div>
+          <div class="show-progress" aria-hidden="true">
+            <span class="show-count" id="showCount">01 / 01</span>
+            <div class="show-bar"><i id="showBar"></i></div>
           </div>
         </div>
       </section>
@@ -2357,8 +2411,87 @@
         if (slide.productId) openProductModal(slide.productId);
       }
 
+      // Collection showcase: packaging slide, then one slide per product, every 3s
+      const SHOW_INTERVAL = 3000;
+      let showIndex = 0;
+      let showTimer = null;
+      let showPaused = false;
+
+      function initShowcase() {
+        const stage = document.getElementById('showcase');
+        if (!stage) return;
+
+        stage.insertAdjacentHTML('beforeend', PRODUCTS.map(p => `
+          <div class="show-slide" aria-roledescription="slide" aria-label="${p.name}">
+            <div class="show-media">
+              <div class="show-frame"><img src="${p.image}" alt="${p.name}" loading="lazy" /></div>
+              <span class="show-tag">${p.origin.split(/,| \(/)[0]}</span>
+            </div>
+            <div class="show-body">
+              <div class="eyebrow">${p.category} · ★ ${p.rating} · ${p.reviews} reviews</div>
+              <h3>${p.name}</h3>
+              <p class="show-sub">${p.subtitle}</p>
+              <p class="show-desc">${p.description}</p>
+              <dl class="show-facts">
+                <div><dt>Origin</dt><dd>${p.origin}</dd></div>
+                <div><dt>Harvest</dt><dd>${p.harvest}</dd></div>
+                <div><dt>Aroma & Profile</dt><dd>${p.notes}</dd></div>
+              </dl>
+              <ul class="show-benefits">${p.benefits.map(b => `<li>${b}</li>`).join('')}</ul>
+              <div class="show-packs">${p.options.map(o => `<span>${o.label}</span>`).join('')}</div>
+              <div class="show-actions">
+                <a href="${productInquiryUrl(p, p.options[0])}" target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-sm">${ICON_WA}<span>WhatsApp</span></a>
+                <button onclick="inquireProductInstagram('${p.id}')" class="btn btn-ig ig-grad btn-sm">${ICON_IG}<span>Instagram</span></button>
+                <button onclick="openProductModal('${p.id}')" class="btn btn-line btn-sm">View Details</button>
+              </div>
+            </div>
+          </div>
+        `).join(''));
+
+        document.documentElement.style.setProperty('--show-ms', `${SHOW_INTERVAL}ms`);
+        // Hold the slide while someone is reading or using its buttons
+        stage.addEventListener('mouseenter', () => pauseShowcase(true));
+        stage.addEventListener('mouseleave', () => pauseShowcase(false));
+        stage.addEventListener('focusin', () => pauseShowcase(true));
+        stage.addEventListener('focusout', () => pauseShowcase(false));
+        document.addEventListener('visibilitychange', () => pauseShowcase(document.hidden));
+
+        showSlide(0);
+      }
+
+      function showSlide(idx) {
+        const slides = document.querySelectorAll('#showcase .show-slide');
+        showIndex = idx;
+        slides.forEach((s, i) => {
+          s.classList.toggle('is-active', i === idx);
+          s.setAttribute('aria-hidden', i !== idx);
+        });
+        const pad = n => String(n).padStart(2, '0');
+        document.getElementById('showCount').textContent = `${pad(idx + 1)} / ${pad(slides.length)}`;
+        scheduleShowcase();
+      }
+
+      function scheduleShowcase() {
+        clearTimeout(showTimer);
+        const bar = document.getElementById('showBar');
+        bar.classList.remove('run');
+        if (reducedMotion || showPaused) return;
+        void bar.offsetWidth; // restart the progress animation
+        bar.classList.add('run');
+        showTimer = setTimeout(() => {
+          const count = document.querySelectorAll('#showcase .show-slide').length;
+          showSlide((showIndex + 1) % count);
+        }, SHOW_INTERVAL);
+      }
+
+      function pauseShowcase(paused) {
+        if (showPaused === paused) return;
+        showPaused = paused;
+        scheduleShowcase();
+      }
+
       // Scroll reveal: single blocks fade up; groups stagger their children
-      const REVEAL_BLOCKS = '.hero-copy, .hero-art, .sec-head, .cmp, .mission, .order-band, .manifesto > *, .concierge-grid > *, .attributes-head';
+      const REVEAL_BLOCKS = '.hero-copy, .hero-art, .sec-head, .cmp, .mission, .order-band, .showcase, .concierge-grid > *, .attributes-head';
       const REVEAL_GROUPS = '.steps, .values, .attributes, .reviews, .perks';
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const revealObserver = !reducedMotion && 'IntersectionObserver' in window
@@ -2408,6 +2541,7 @@
       initHeroSlideshow();
       initMarquee();
       renderProducts();
+      initShowcase();
       renderComparison(0);
       updateCartBadge();
       initReveal();
