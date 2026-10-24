@@ -922,9 +922,16 @@
         .attributes { grid-template-columns: repeat(5, 1fr); }
       }
 
-      /* Reviews */
-      .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 20px; }
+      /* Reviews slider: steps one card at a time, looping */
+      /* Clip sideways at the content edge, but leave room above/below for card shadows */
+      .reviews-viewport { --per: 1; --gap: 20px; clip-path: inset(-48px 0); }
+      .reviews-track { display: flex; gap: var(--gap); transition: transform 0.9s var(--ease); will-change: transform; }
+      .reviews-track.no-anim { transition: none; }
+      @media (min-width: 720px) { .reviews-viewport { --per: 2; } }
+      @media (min-width: 1080px) { .reviews-viewport { --per: 3; } }
       .review {
+        flex: 0 0 calc((100% - var(--gap) * (var(--per) - 1)) / var(--per));
+        margin: 0;
         display: flex;
         flex-direction: column;
         padding: 2rem 1.8rem;
@@ -1622,31 +1629,10 @@
             <h2 class="h2">Tested & Trusted <em>Across Homes</em></h2>
           </div>
 
-          <div class="reviews">
-            <figure class="review" style="margin:0">
-              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <p>“Having grown up in Kashmir, I know real saffron when I smell it. The moment you place a single thread of this Mongra in warm milk, it blooms into a brilliant gold without turning reddish-orange prematurely. True Grade A1 purity.”</p>
-              <figcaption class="review-by">
-                <div><strong>Dr. Tariq M.</strong><span>Srinagar / New Delhi</span></div>
-                <span class="verified">✓ Verified Harvest</span>
-              </figcaption>
-            </figure>
-            <figure class="review" style="margin:0">
-              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <p>“The oil content is extraordinary compared to the dry California almonds in supermarkets. When soaked overnight, the skins peel effortlessly and the nutty sweetness is unbelievable.”</p>
-              <figcaption class="review-by">
-                <div><strong>Ananya Deshmukh</strong><span>Mumbai</span></div>
-                <span class="verified">✓ Verified Harvest</span>
-              </figcaption>
-            </figure>
-            <figure class="review" style="margin:0">
-              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <p>“Not a single bitter or rancid piece in the 1kg pack. They arrive crisp, milky-white, and fragrant. The WhatsApp ordering process was smooth and delivery was prompt.”</p>
-              <figcaption class="review-by">
-                <div><strong>Vikramaditya Sengupta</strong><span>Bengaluru</span></div>
-                <span class="verified">✓ Verified Harvest</span>
-              </figcaption>
-            </figure>
+          <div class="reviews-viewport" aria-roledescription="carousel" aria-label="Customer reviews">
+            <div class="reviews-track" id="reviewsTrack">
+              <!-- Rendered from REVIEWS in the script below -->
+            </div>
           </div>
         </div>
       </section>
@@ -2520,6 +2506,68 @@
         }, SHOW_INTERVAL);
       }
 
+      // Customer reviews: add real reviews here (text, name, place); the slider picks them up
+      const REVIEWS = [
+        {
+          text: 'Having grown up in Kashmir, I know real saffron when I smell it. The moment you place a single thread of this Mongra in warm milk, it blooms into a brilliant gold without turning reddish-orange prematurely. True Grade A1 purity.',
+          name: 'Dr. Tariq M.',
+          place: 'Srinagar / New Delhi'
+        },
+        {
+          text: 'The oil content is extraordinary compared to the dry California almonds in supermarkets. When soaked overnight, the skins peel effortlessly and the nutty sweetness is unbelievable.',
+          name: 'Ananya Deshmukh',
+          place: 'Mumbai'
+        },
+        {
+          text: 'Not a single bitter or rancid piece in the 1kg pack. They arrive crisp, milky-white, and fragrant. The WhatsApp ordering process was smooth and delivery was prompt.',
+          name: 'Vikramaditya Sengupta',
+          place: 'Bengaluru'
+        }
+      ];
+      const REVIEW_INTERVAL = 4000;
+      let reviewIndex = 0;
+
+      function reviewCard(r) {
+        const stars = r.stars || 5;
+        return `
+          <figure class="review">
+            <div class="stars" aria-label="${stars} out of 5 stars">${'★'.repeat(stars)}${'☆'.repeat(5 - stars)}</div>
+            <p>“${r.text}”</p>
+            <figcaption class="review-by">
+              <div><strong>${r.name}</strong><span>${r.place}</span></div>
+              <span class="verified">✓ Verified Harvest</span>
+            </figcaption>
+          </figure>`;
+      }
+
+      function initReviews() {
+        const track = document.getElementById('reviewsTrack');
+        if (!track || !REVIEWS.length) return;
+        // A second copy lets the track keep moving forward, then jump back seamlessly
+        track.innerHTML = REVIEWS.map(reviewCard).join('') + REVIEWS.map(reviewCard).join('');
+        [...track.children].slice(REVIEWS.length).forEach(c => c.setAttribute('aria-hidden', 'true'));
+
+        const step = () => {
+          const card = track.children[0];
+          return card.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0);
+        };
+        const place = () => { track.style.transform = `translateX(${-reviewIndex * step()}px)`; };
+        const jump = () => {
+          track.classList.add('no-anim');
+          place();
+          void track.offsetWidth;
+          track.classList.remove('no-anim');
+        };
+        window.addEventListener('resize', jump);
+
+        setInterval(() => {
+          // Sitting on the copy of the first card looks identical to the start, so snap back
+          if (reviewIndex >= REVIEWS.length) { reviewIndex = 0; jump(); }
+          reviewIndex += 1;
+          place();
+        }, REVIEW_INTERVAL);
+      }
+
       // Mission / Vision slider, every 6s
       const MV_INTERVAL = 6000;
       let mvIndex = 0;
@@ -2544,8 +2592,8 @@
       }
 
       // Scroll reveal: single blocks fade up; groups stagger their children
-      const REVEAL_BLOCKS = '.hero-copy, .hero-art, .sec-head, .cmp, .mv-slider, .order-band, .showcase, .concierge-grid > *, .attributes-head';
-      const REVEAL_GROUPS = '.steps, .values, .attributes, .reviews, .perks';
+      const REVEAL_BLOCKS = '.hero-copy, .hero-art, .sec-head, .cmp, .mv-slider, .order-band, .reviews-viewport, .showcase, .concierge-grid > *, .attributes-head';
+      const REVEAL_GROUPS = '.steps, .values, .attributes, .perks';
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const revealObserver = !reducedMotion && 'IntersectionObserver' in window
         ? new IntersectionObserver(entries => {
@@ -2596,6 +2644,7 @@
       renderProducts();
       initShowcase();
       initMissionVision();
+      initReviews();
       renderComparison(0);
       updateCartBadge();
       initReveal();
