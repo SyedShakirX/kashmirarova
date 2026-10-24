@@ -988,7 +988,6 @@
 
       /* Inquiry channel buttons (WhatsApp + Instagram) */
       .inquire { display: flex; align-items: center; gap: 0.4rem; }
-      .inquire-label { margin-right: 0.15rem; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
       .chan {
         width: 38px;
         height: 38px;
@@ -1965,7 +1964,6 @@
 
                 <div class="product-actions">
                   <div class="inquire">
-                    <span class="inquire-label">Inquire</span>
                     <a href="${productInquiryUrl(p, currentOpt)}" target="_blank" rel="noopener noreferrer" class="chan chan-wa" title="Inquire on WhatsApp" aria-label="Inquire about ${p.name} on WhatsApp">${ICON_WA}</a>
                     <button onclick="inquireProductInstagram('${p.id}')" class="chan chan-ig ig-grad" title="Inquire on Instagram" aria-label="Inquire about ${p.name} on Instagram">${ICON_IG}</button>
                   </div>
