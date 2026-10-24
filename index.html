@@ -615,22 +615,6 @@
         justify-content: space-between;
         gap: 0.75rem;
       }
-      .product-actions-inner { display: flex; gap: 0.5rem; margin-top: 1.4rem; }
-      .link-wa {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.45rem;
-        font-size: 0.72rem;
-        font-weight: 500;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--green);
-        border-bottom: 1px solid transparent;
-        padding-block: 0.3rem;
-        transition: border-color 0.2s;
-      }
-      .link-wa:hover { border-color: currentColor; }
-      .link-wa svg { width: 15px; height: 15px; }
 
       /* Comparison */
       .seg {
@@ -1001,6 +985,49 @@
       .footer-ig { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 0.9rem; color: #C13584; font-weight: 500; border-bottom: 1px solid currentColor; }
       html.dark .footer-ig { color: #F07BB8; }
       .footer-ig svg { width: 15px; height: 15px; }
+
+      /* Inquiry channel buttons (WhatsApp + Instagram) */
+      .inquire { display: flex; align-items: center; gap: 0.4rem; }
+      .inquire-label { margin-right: 0.15rem; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+      .chan {
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: transform 0.2s var(--ease), filter 0.2s;
+      }
+      .chan:hover { transform: translateY(-2px); filter: brightness(1.08); }
+      .chan svg { width: 17px; height: 17px; }
+      .chan-wa { background: var(--grad-green); box-shadow: 0 10px 22px -12px rgba(30, 90, 66, 0.8); }
+      .chan-ig { box-shadow: 0 10px 22px -12px rgba(160, 40, 110, 0.8); }
+      .btn-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+      .cmp-foot .btn-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+        z-index: 70;
+        max-width: calc(100vw - 32px);
+        padding: 0.85rem 1.2rem;
+        border-radius: 16px;
+        background: rgba(26, 19, 15, 0.82);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        backdrop-filter: blur(16px) saturate(160%);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: #F1E7D6;
+        font-size: 0.85rem;
+        box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        transform: translate(-50%, 16px);
+        pointer-events: none;
+        transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+      }
+      .toast.show { opacity: 1; transform: translate(-50%, 0); }
       .fab svg { width: 18px; height: 18px; }
 
       /* Modal */
@@ -1518,20 +1545,19 @@
                 </div>
               </div>
 
-              <label for="conciergeMsgInput">Message to send on WhatsApp</label>
+              <label for="conciergeMsgInput">Your message</label>
               <textarea id="conciergeMsgInput" rows="4">Hi can I get more Info on your products.</textarea>
-              <div class="hint">Pre-filled with your inquiry prompt.</div>
+              <div class="hint">Send it on WhatsApp or Instagram, whichever you prefer.</div>
 
               <button onclick="sendConciergeMsg()" class="btn btn-wa btn-block">
                 <span>Send Message on WhatsApp</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
               </button>
-              <div class="fine">Redirects securely to WhatsApp (+91 70068 12676)</div>
-
-              <a data-instagram href="#" target="_blank" rel="noopener noreferrer" class="btn btn-ig ig-grad btn-block">
+              <button onclick="sendConciergeInstagram()" class="btn btn-ig ig-grad btn-block">
+                <span>Send Message on Instagram</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" stroke="none"></circle></svg>
-                <span>Follow on Instagram</span>
-              </a>
+              </button>
+              <div class="fine">WhatsApp +91 70068 12676 · Instagram <span data-instagram-handle>@kashmirarovaofficial</span></div>
             </div>
           </div>
         </div>
@@ -1602,6 +1628,8 @@
       </div>
     </footer>
 
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
     <!-- Floating Instagram -->
     <a data-instagram href="#" target="_blank" rel="noopener noreferrer" aria-label="Kashmir Arova on Instagram" class="fab-ig ig-grad">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" stroke="none"></circle></svg>
@@ -1638,6 +1666,8 @@
       const DEFAULT_WA_MSG = 'Hi can I get more Info on your products.';
       const INSTAGRAM_HANDLE = 'kashmirarovaofficial';
       const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;
+      const INSTAGRAM_DM_URL = `https://ig.me/m/${INSTAGRAM_HANDLE}`;
+      const ICON_IG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" stroke="none"></circle></svg>';
 
       document.querySelectorAll('[data-instagram]').forEach(a => a.href = INSTAGRAM_URL);
       document.querySelectorAll('[data-instagram-handle]').forEach(el => el.textContent = `@${INSTAGRAM_HANDLE}`);
@@ -1808,8 +1838,62 @@
 
       let currentCategory = 'all';
 
+      function whatsappUrl(text) {
+        return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
+      }
+
+      function productInquiryText(p, opt) {
+        return `Hi, I would like to inquire about availability and details for:\n\n*Product:* ${p.name}\n*Packaging:* ${opt.label}\n\nPlease share current harvest rate and delivery timeframe.`;
+      }
+
       function productInquiryUrl(p, opt) {
-        return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(`Hi, I would like to inquire about availability and details for:\n\n*Product:* ${p.name}\n*Packaging:* ${opt.label}\n\nPlease share current harvest rate and delivery timeframe.`)}`;
+        return whatsappUrl(productInquiryText(p, opt));
+      }
+
+      // Instagram can't pre-fill a DM, so copy the message and open the chat
+      function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          return navigator.clipboard.writeText(text).then(() => true, () => legacyCopy(text));
+        }
+        return Promise.resolve(legacyCopy(text));
+      }
+
+      function legacyCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) {}
+        ta.remove();
+        return ok;
+      }
+
+      function sendInstagram(text) {
+        // Open first, inside the click, so popup blockers allow it
+        window.open(INSTAGRAM_DM_URL, '_blank', 'noopener');
+        copyText(text.replace(/\*/g, '')).then(ok => showToast(ok
+          ? 'Message copied. Paste it into the Instagram chat to send.'
+          : `Opening Instagram chat with @${INSTAGRAM_HANDLE}…`));
+      }
+
+      let toastTimer = null;
+      function showToast(msg) {
+        const el = document.getElementById('toast');
+        if (!el) return;
+        el.textContent = msg;
+        el.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 4500);
+      }
+
+      function inquireProductInstagram(productId) {
+        const p = PRODUCTS.find(prod => prod.id === productId);
+        if (!p) return;
+        sendInstagram(productInquiryText(p, p.options[selectedOptionsState[p.id] || 0]));
       }
 
       // Theme toggle
@@ -1880,9 +1964,11 @@
                 <div class="opts">${optionsHtml}</div>
 
                 <div class="product-actions">
-                  <a href="${productInquiryUrl(p, currentOpt)}" target="_blank" rel="noopener noreferrer" class="link-wa" title="Inquire on WhatsApp">
-                    ${ICON_WA}<span>Inquire</span>
-                  </a>
+                  <div class="inquire">
+                    <span class="inquire-label">Inquire</span>
+                    <a href="${productInquiryUrl(p, currentOpt)}" target="_blank" rel="noopener noreferrer" class="chan chan-wa" title="Inquire on WhatsApp" aria-label="Inquire about ${p.name} on WhatsApp">${ICON_WA}</a>
+                    <button onclick="inquireProductInstagram('${p.id}')" class="chan chan-ig ig-grad" title="Inquire on Instagram" aria-label="Inquire about ${p.name} on Instagram">${ICON_IG}</button>
+                  </div>
                   <button onclick="addToCart('${p.id}', ${optIdx})" class="btn btn-ink btn-sm">Add to Bag</button>
                 </div>
               </div>
@@ -1937,7 +2023,10 @@
 
           <div class="cmp-foot">
             <span>Need lab test certificates or bulk sample verification? Connect directly with our Srinagar quality team.</span>
-            <a href="https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(DEFAULT_WA_MSG)}" target="_blank" rel="noopener noreferrer" class="btn btn-ink btn-sm">Ask on WhatsApp →</a>
+            <div class="btn-row">
+              <a href="${whatsappUrl(DEFAULT_WA_MSG)}" target="_blank" rel="noopener noreferrer" class="btn btn-wa btn-sm">${ICON_WA}<span>WhatsApp</span></a>
+              <button onclick="sendInstagram(DEFAULT_WA_MSG)" class="btn btn-ig ig-grad btn-sm">${ICON_IG}<span>Instagram</span></button>
+            </div>
           </div>
         `;
       }
@@ -2070,15 +2159,28 @@
               <span>Selected varieties · <span class="rates">Inquire rates</span></span>
               <b>${totalItems} items</b>
             </div>
-            <button onclick="checkoutViaWhatsApp()" class="btn btn-wa btn-block">
-              ${ICON_WA}<span>Inquire All on WhatsApp</span>
-            </button>
+            <div class="btn-pair">
+              <button onclick="checkoutViaWhatsApp()" class="btn btn-wa">
+                ${ICON_WA}<span>WhatsApp</span>
+              </button>
+              <button onclick="checkoutViaInstagram()" class="btn btn-ig ig-grad">
+                ${ICON_IG}<span>Instagram</span>
+              </button>
+            </div>
             <div class="fine">100% Genuine GI Kashmir Seal · Zero Artificial Preservatives</div>
           </div>
         `;
       }
 
       function checkoutViaWhatsApp() {
+        window.open(whatsappUrl(cartInquiryText()), '_blank');
+      }
+
+      function checkoutViaInstagram() {
+        sendInstagram(cartInquiryText());
+      }
+
+      function cartInquiryText() {
         const notesInput = document.getElementById('cartDeliveryNotes');
         const notes = notesInput ? notesInput.value.trim() : '';
 
@@ -2088,8 +2190,7 @@
         });
         if (notes) text += `*Delivery City / Notes:* ${notes}\n\n`;
         text += `Please share current harvest rates and delivery timeframe. Thank you!`;
-
-        window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`, '_blank');
+        return text;
       }
 
       // Product Quick View Modal
@@ -2137,12 +2238,13 @@
               <div class="modal-block" style="margin-top:0">
                 <h4>Selected Packaging</h4>
                 <div class="pack">${currentOpt.label}</div>
-                <div class="note">Direct orchard harvest · Inquire on WhatsApp for current rates</div>
+                <div class="note">Direct orchard harvest · Inquire on WhatsApp or Instagram for current rates</div>
               </div>
-              <div class="row">
-                <a href="${productInquiryUrl(p, currentOpt)}" target="_blank" rel="noopener noreferrer" class="btn btn-wa">Inquire</a>
-                <button onclick="addToCart('${p.id}', ${optIdx}); closeProductModal();" class="btn btn-ink">Add to Bag</button>
+              <div class="btn-pair" style="margin-top:1.2rem">
+                <a href="${productInquiryUrl(p, currentOpt)}" target="_blank" rel="noopener noreferrer" class="btn btn-wa">${ICON_WA}<span>WhatsApp</span></a>
+                <button onclick="inquireProductInstagram('${p.id}')" class="btn btn-ig ig-grad">${ICON_IG}<span>Instagram</span></button>
               </div>
+              <button onclick="addToCart('${p.id}', ${optIdx}); closeProductModal();" class="btn btn-ink btn-block" style="margin-top:0.6rem">Add to Bag</button>
             </div>
           </div>
         `;
@@ -2161,7 +2263,12 @@
       function sendConciergeMsg() {
         const input = document.getElementById('conciergeMsgInput');
         const text = input ? input.value.trim() : DEFAULT_WA_MSG;
-        window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text || DEFAULT_WA_MSG)}`, '_blank');
+        window.open(whatsappUrl(text || DEFAULT_WA_MSG), '_blank');
+      }
+
+      function sendConciergeInstagram() {
+        const input = document.getElementById('conciergeMsgInput');
+        sendInstagram((input && input.value.trim()) || DEFAULT_WA_MSG);
       }
 
       // Hero slideshow: the Pampore field, then each distinct product photo
